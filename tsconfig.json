@@ -7,5 +7,13 @@
     {
       "path": "./tsconfig.app.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "allowJs": true,
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@components/*": ["components/*"]
+    }
+  }
 }
