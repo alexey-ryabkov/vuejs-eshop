@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import svgLoader from "vite-svg-loader";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import { imagetools } from "vite-imagetools";
 import vueDevTools from "vite-plugin-vue-devtools";
 
 export default defineConfig({
@@ -18,6 +19,7 @@ export default defineConfig({
       symbolId: "[name]",
     }),
     svgLoader(),
+    imagetools(),
     vueDevTools(),
   ],
   resolve: {
