@@ -1,11 +1,7 @@
-import "./assets/main.css";
-import "virtual:svg-icons-register";
-
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-
+import router from "@app/router";
 import App from "./App.vue";
-import router from "./router";
 
 const app = createApp(App);
 

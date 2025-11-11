@@ -12,8 +12,14 @@
     "baseUrl": "./src",
     "allowJs": true,
     "paths": {
+      "@/*": ["/*"],
+      "@root/*": ["../*"],
+      "@app/*": ["app/*"],
+      "@layouts/*": ["layouts/*"],
       "@shared/*": ["shared/*"],
-      "@components/*": ["components/*"]
+      "@composables/*": ["shared/composables/*"],
+      "@components/*": ["components/*"],
+      "@views/*": ["views/*"]
     }
   }
 }
