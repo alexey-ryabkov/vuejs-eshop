@@ -9,8 +9,7 @@
   font-style: normal;
   font-display: swap;
   src: url("@assets/fonts/abelrus.eot");
-  src:
-    url("@assets/fonts/abelrus.eot#iefix") format("embedded-opentype"),
+  src: url("@assets/fonts/abelrus.eot#iefix") format("embedded-opentype"),
     url("@assets/fonts/abelrus.eot") format("eot"),
     url("@assets/fonts/abelrus.woff2") format("woff2"),
     url("@assets/fonts/abelrus.woff") format("woff"),
@@ -18,6 +17,9 @@
 }
 
 @theme inline {
+  --font-abel: abelrus;
+  --font-bellota: "Bellota Text";
+  --leading-loose: 2.25;
   --radius-xs: 0.1875rem;
   --radius-xl: 0.625rem;
   --color-background: var(--background);
@@ -83,6 +85,7 @@
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(63.68% 0 0);
   --secondary-foreground: oklch(0 0 0);
+  /* --secondary2: oklch(67.97% 0.0000 0); */
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -91,6 +94,7 @@
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(86.99% 0 0);
+  /* --placeholder: oklch(67.97% 0.0000 0); */
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -107,6 +111,20 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+@layer components {
+  .layout-area {
+    @apply w-full min-w-94 max-w-280 px-4 sm:px-6 m-auto;
+  }
+}
+
+@utility font-base {
+  @apply font-bellota italic tracking-wide;
+}
+
+@utility font-compact {
+  @apply font-abel not-italic;
+}
+
 html {
   font-size: 16px;
 }
@@ -117,7 +135,7 @@ html {
   }
   body {
     @apply bg-background text-foreground text-sm;
-    @apply font-normal font-[abelrus] md:font-[Bellota_Text] md:italic md:tracking-wide;
+    @apply font-normal font-compact md:font-base;
 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: subpixel-antialiased;
