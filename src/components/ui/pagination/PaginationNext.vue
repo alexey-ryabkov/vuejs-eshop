@@ -28,7 +28,11 @@ const forwarded = useForwardProps(delegatedProps);
   <PaginationNext
     data-slot="pagination-next"
     :class="
-      cn(buttonVariants({ variant: 'ghost', size }), 'size-8', props.class)
+      cn(
+        buttonVariants({ variant: 'ghost', size }),
+        'size-8 rounded-2xl',
+        props.class
+      )
     "
     v-bind="forwarded"
   >

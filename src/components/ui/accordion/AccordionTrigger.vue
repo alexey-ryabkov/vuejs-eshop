@@ -20,20 +20,19 @@ const delegatedProps = reactiveOmit(props, "class");
       v-bind="delegatedProps"
       :class="
         cn(
-          'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-3 text-left text-lg font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-0',
+          'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-center justify-between gap-4',
+          'cursor-pointer h-12 text-left text-lg font-medium transition-all outline-none hover:underline border-b',
+          'focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-0',
           props.class
         )
       "
     >
       <slot />
       <slot name="icon">
-        <!-- <ChevronDown
-          
-        /> -->
         <SvgIcon
           name="arrow-accordion"
-          class="text-foreground pointer-events-none size-3 shrink-0 me-1.5 rotate-180 translate-y-0.5 transition-transform duration-200"
-        ></SvgIcon>
+          class="text-foreground pointer-events-none size-3 shrink-0 me-1.5 rotate-180 transition-transform duration-200"
+        />
       </slot>
     </AccordionTrigger>
   </AccordionHeader>

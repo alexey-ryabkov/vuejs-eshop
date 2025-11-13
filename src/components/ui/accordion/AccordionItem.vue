@@ -13,12 +13,12 @@ const delegatedProps = reactiveOmit(props, "class");
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
-
+<!-- border-b last:border-b-0  -->
 <template>
   <AccordionItem
     data-slot="accordion-item"
     v-bind="forwardedProps"
-    :class="cn('border-b last:border-b-0 mb-6 last:mb-0', props.class)"
+    :class="cn('mb-6 last:mb-0', props.class)"
   >
     <slot />
   </AccordionItem>

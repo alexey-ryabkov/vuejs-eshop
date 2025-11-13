@@ -6,7 +6,13 @@ import {
 } from "@components/ui/input-group";
 import { Button } from "@components/ui/button";
 import { Badge } from "@components/ui/badge";
-import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetOverlay,
+  SheetClose,
+} from "@components/ui/sheet";
 import SvgIcon from "@components/lib/SvgIcon.vue";
 import LogoWithSign from "@assets/icons/logo-cyber-sign.svg";
 import Logo from "@assets/icons/logo-cyber.svg";
@@ -42,39 +48,49 @@ import Logo from "@assets/icons/logo-cyber.svg";
           </div>
         </div>
 
-        <div class="sm:hidden">
-          <Sheet>
-            <SheetTrigger as-child>
-              <Button variant="ghost" size="icon-lg" class="rounded-3xl">
-                <SvgIcon name="burger" class="size-10 p-2 text-primary" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              class="w-full px-4 py-18 flex flex-col gap-6 xs:w-[80%]"
-            >
-              <InputGroup variant="accent" size="lg" class="w-full">
-                <InputGroupInput
-                  class="text-base text-center"
-                  placeholder="Search"
-                />
-                <InputGroupAddon>
-                  <SvgIcon name="search" class="size-6 p-1 text-[#989898]" />
-                </InputGroupAddon>
-              </InputGroup>
+        <Sheet>
+          <SheetTrigger class="sm:hidden" as-child>
+            <Button variant="ghost" size="icon-lg" class="rounded-3xl">
+              <SvgIcon name="burger" class="size-10 p-2 text-primary" />
+            </Button>
+          </SheetTrigger>
+          <SheetOverlay class="sm:hidden" />
+          <SheetContent
+            side="right"
+            class="w-full px-4 py-18 flex flex-col gap-4 sm:hidden"
+          >
+            <InputGroup variant="accent" size="lg" class="w-full">
+              <InputGroupInput
+                class="text-base text-center"
+                placeholder="Search"
+              />
+              <InputGroupAddon>
+                <SvgIcon name="search" class="size-6 p-1 text-[#989898]" />
+              </InputGroupAddon>
+            </InputGroup>
 
-              <Button variant="ghost" size="lg" class="w-full">
-                <SvgIcon name="heart" class="size-8 p-1.5 text-primary" />
-                <span class="text-base">Избранное</span>
-              </Button>
+            <Button variant="ghost" size="lg" class="w-full">
+              <SvgIcon name="heart" class="size-8 p-1.5 text-primary" />
+              <span class="text-base">Избранное</span>
+            </Button>
 
-              <Button variant="ghost" size="lg" class="w-full">
-                <SvgIcon name="basket" class="size-8 p-1.5 text-primary" />
-                <span class="text-base">Корзина (2)</span>
+            <Button variant="ghost" size="lg" class="w-full">
+              <SvgIcon name="basket" class="size-8 p-1.5 text-primary" />
+              <span class="text-base">Корзина (2)</span>
+            </Button>
+
+            <SheetClose as-child>
+              <Button
+                variant="ghost"
+                size="icon-lg"
+                class="rounded-3xl absolute top-4 right-4"
+              >
+                <SvgIcon name="cross" class="size-10 p-2.5 text-primary" />
               </Button>
-            </SheetContent>
-          </Sheet>
-        </div>
+              <span class="sr-only">Close</span>
+            </SheetClose>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
     <main class="w-full grow">

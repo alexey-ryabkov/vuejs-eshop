@@ -2,16 +2,8 @@
 import type { DialogContentEmits, DialogContentProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";
 import { reactiveOmit } from "@vueuse/core";
-import { Button } from "@components/ui/button";
-import SvgIcon from "@components/lib/SvgIcon.vue";
-import {
-  DialogClose,
-  DialogContent,
-  DialogPortal,
-  useForwardPropsEmits,
-} from "reka-ui";
+import { DialogContent, DialogPortal, useForwardPropsEmits } from "reka-ui";
 import { cn } from "@shared/utils";
-import SheetOverlay from "./SheetOverlay.vue";
 
 interface SheetContentProps extends DialogContentProps {
   class?: HTMLAttributes["class"];
@@ -34,7 +26,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 
 <template>
   <DialogPortal>
-    <SheetOverlay />
     <DialogContent
       data-slot="sheet-content"
       :class="
@@ -55,14 +46,14 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
     >
       <slot />
 
-      <DialogClose
+      <!-- <DialogClose
         class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
       >
         <Button variant="ghost" size="icon-lg" class="rounded-3xl">
           <SvgIcon name="cross" class="size-10 p-2 text-primary" />
         </Button>
         <span class="sr-only">Close</span>
-      </DialogClose>
+      </DialogClose> -->
     </DialogContent>
   </DialogPortal>
 </template>
