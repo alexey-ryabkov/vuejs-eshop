@@ -8,6 +8,11 @@ declare module "*as=srcset" {
   export default srcset;
 }
 
+declare module "*as=url" {
+  const srcset: string;
+  export default srcset;
+}
+
 declare module "*as=picture" {
   type PictureSet = {
     webp?: string;
