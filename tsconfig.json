@@ -18,6 +18,8 @@
       "@layouts/*": ["layouts/*"],
       "@shared/*": ["shared/*"],
       "@composables/*": ["shared/composables/*"],
+      "@store/*": ["store/*"],
+      "@features/*": ["features/*"],
       "@components/*": ["components/*"],
       "@views/*": ["views/*"]
     }

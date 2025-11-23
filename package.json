@@ -21,6 +21,7 @@
     "embla-carousel-vue": "8.6.0",
     "lucide-vue-next": "0.548.0",
     "pinia": "3.0.1",
+    "pinia-plugin-persistedstate": "4.7.1",
     "reka-ui": "2.6.0",
     "shadcn-vue": "2.3.2",
     "tailwind-merge": "3.3.1",
@@ -32,7 +33,7 @@
     "zod": "4.1.12"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.3.6",
     "@tailwindcss/vite": "4.1.16",
     "@tsconfig/node22": "22.0.1",
     "@types/node": "22.14.0",
