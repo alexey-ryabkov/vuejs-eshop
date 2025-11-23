@@ -10,6 +10,26 @@ import type { ErrorHandler } from "@shared/types";
 import { appErrorHandler, inErrorBoundary } from "@shared/errorsHandling";
 import AppError from "@shared/AppError";
 
+export function processMalformedDate(val: string) {
+  const parts = val.split(/[-\/\. ]+/);
+  if (parts.length !== 3) return val;
+
+  const [py, pa, pb] = parts.map((p) => Number(p));
+  if ([py, pa, pb].some((n) => Number.isNaN(n))) return val;
+
+  const fallback = tryMakeDate(py, pa, pb) || tryMakeDate(py, pb, pa);
+  if (fallback) return fallback;
+
+  return val;
+}
+function tryMakeDate(y: number, m: number, d: number): Date | null {
+  const date = new Date(y, m - 1, d);
+  if (Number.isNaN(date.getTime())) return null;
+  const yy = date.getFullYear();
+  if (yy < 1900 || yy > 3000) return null;
+  return date;
+}
+
 export async function processApiRequest<
   T extends object | undefined = undefined
 >(request: ApiRequest, schema: ZodType): Promise<T> {
@@ -56,14 +76,16 @@ export const showNotification = (
 ) => toast[type](msg, params);
 
 export const inNotificationBoundary = <T = unknown>(
-  func: () => T,
-  fallback?: () => T,
+  func: () => T | Promise<T>,
+  fallback?: () => T | Promise<T>,
   message?: string
 ) =>
   inErrorBoundary<T>(
     func,
     fallback,
-    notifyUserWithError.bind(null, undefined, message)
+    message
+      ? notifyUserWithError.bind(null, undefined, message)
+      : notifyUserWithError
   );
 
 export const notifyUserWithError: ErrorHandler = (

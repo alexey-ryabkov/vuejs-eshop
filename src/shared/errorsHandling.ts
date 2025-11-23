@@ -7,37 +7,30 @@ export const inMuteErrorBoundary = <T = unknown>(
   fallback?: () => T
 ) => inErrorBoundary<T>(func, fallback, null);
 
-export function inErrorBoundary<T = unknown>(
-  func: () => T,
-  fallback?: () => T,
+export async function inErrorBoundary<T = unknown>(
+  func: () => T | Promise<T>,
+  fallback?: () => T | Promise<T>,
   errorHandler: ErrorHandler | null = defaultErrorHandler,
-  always?: () => void
-):
-  | T
-  | void
-  | (typeof errorHandler extends ErrorHandler
-      ? ReturnType<typeof errorHandler>
-      : void) {
-  let result: T | AppError | void = undefined;
+  always?: () => void | Promise<void>
+): Promise<T | ReturnType<ErrorHandler> | void> {
   try {
-    result = func();
+    return await func();
   } catch (funcErr) {
     if (fallback) {
       try {
-        result = fallback();
+        return await fallback();
       } catch (fallbackErr) {
         if (errorHandler) {
-          result = errorHandler(fallbackErr);
+          return errorHandler(fallbackErr);
         }
       }
     }
     if (errorHandler) {
-      result = errorHandler(funcErr);
+      return errorHandler(funcErr);
     }
   } finally {
-    always?.();
+    await always?.();
   }
-  return result;
 }
 
 export const defaultErrorHandler: ErrorHandler<void> = (err) => {

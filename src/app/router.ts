@@ -5,7 +5,7 @@ const MainPage = () => import("@views/Main.vue");
 const CategoryPage = () => import("@views/Category.vue");
 const ProductPage = () => import("@views/Product.vue");
 const FavoritesPage = () => import("@views/Favorites.vue");
-const BasketPage = () => import("@views/Basket.vue");
+const CartPage = () => import("@views/Cart.vue");
 const Error404Page = () => import("@views/Error404.vue");
 
 const router = createRouter({
@@ -27,7 +27,7 @@ const router = createRouter({
       ],
     },
     { path: APP_ROUTES.FAVORITIES, component: FavoritesPage },
-    { path: APP_ROUTES.BASKET, component: BasketPage },
+    { path: APP_ROUTES.CART, component: CartPage },
     { path: APP_ROUTES.UNKNOWN, component: Error404Page },
     { path: "/:pathMatch(.*)*", redirect: APP_ROUTES.UNKNOWN },
   ],

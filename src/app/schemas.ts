@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { processMalformedDate } from "@app/utils";
 
 export const characteristicSchema = z.object({
   characteristic: z.string(),
@@ -8,7 +9,18 @@ export const characteristicSchema = z.object({
 
 export const productSchema = z.object({
   id: z.number(),
-  createdAt: z.coerce.date(),
+  // handle wrong date format in server data
+  createdAt: z.preprocess((rawVal) => {
+    if (rawVal instanceof Date) return rawVal;
+    if (typeof rawVal !== "string") return rawVal;
+
+    const val = rawVal.trim();
+    const date = new Date(val);
+    if (!Number.isNaN(date.getTime())) return date;
+
+    return processMalformedDate(val);
+  }, z.date()),
+  // createdAt: z.coerce.date(),
   price: z.number(),
   discount_price: z.number().nullable(),
   guarantee: z.number(),
