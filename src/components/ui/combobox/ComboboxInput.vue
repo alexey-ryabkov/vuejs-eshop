@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import type { ComboboxInputEmits, ComboboxInputProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";
 import { reactiveOmit } from "@vueuse/core";
-import { ComboboxInput, useForwardPropsEmits } from "reka-ui";
-import SvgIcon from "@components/lib/SvgIcon.vue";
-import { cn } from "@shared/utils";
+import {
+  type ComboboxInputEmits,
+  type ComboboxInputProps,
+  ComboboxInput,
+  useForwardPropsEmits,
+} from "reka-ui";
 import { InputGroup, InputGroupAddon } from "@components/ui/input-group";
+import type { InputVariants } from "@components/ui/input";
+import { cn } from "@shared/utils";
 
 defineOptions({
   inheritAttrs: false,
@@ -14,24 +18,27 @@ defineOptions({
 const props = defineProps<
   ComboboxInputProps & {
     class?: HTMLAttributes["class"];
+    size?: InputVariants["size"];
+    loading?: boolean;
   }
 >();
 
 const emits = defineEmits<ComboboxInputEmits>();
 
-const delegatedProps = reactiveOmit(props, "class");
+const delegatedProps = reactiveOmit(props, ["class", "size"]);
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
   <div data-slot="command-input-wrapper">
-    <InputGroup data-slot="command-input" variant="accent">
+    <InputGroup data-slot="command-input" variant="accent" :size="props.size">
       <ComboboxInput
         data-slot="input-group-control"
         :class="
           cn(
-            'flex-1 rounded-none border-0 p-0 h-auto bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent placeholder:text-[#adadad] outline-hidden',
+            'flex-1 rounded-none border-0 p-0 h-auto bg-transparent shadow-none focus-visible:ring-0',
+            'dark:bg-transparent placeholder:text-[#adadad] outline-hidden',
             props.class
           )
         "
@@ -39,8 +46,8 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       >
         <slot />
       </ComboboxInput>
-      <InputGroupAddon>
-        <SvgIcon name="search" class="size-6 p-1 text-[#989898]" />
+      <InputGroupAddon v-if="$slots.icon">
+        <slot name="icon" />
       </InputGroupAddon>
     </InputGroup>
   </div>

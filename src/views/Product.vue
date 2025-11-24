@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import { useWindowSize, watchOnce } from "@vueuse/core";
 import { Button } from "@components/ui/button";
-import SvgIcon from "@components/lib/SvgIcon.vue";
+import SvgIcon from "@components/ui/svg-icon";
 import {
   Carousel,
   CarouselContent,

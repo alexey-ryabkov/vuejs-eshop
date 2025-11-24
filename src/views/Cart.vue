@@ -32,7 +32,7 @@ import {
   InputGroupText,
 } from "@components/ui/input-group";
 import { Button } from "@components/ui/button";
-import SvgIcon from "@components/lib/SvgIcon.vue";
+import SvgIcon from "@components/ui/svg-icon";
 import { Separator } from "@components/ui/separator";
 import productSrcset from "@assets/images/iphone-14.png?w=75;150;448&format=webp&as=srcset";
 import productPicture from "@assets/images/iphone-14.png";

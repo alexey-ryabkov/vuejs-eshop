@@ -43,7 +43,7 @@ import {
 } from "@components/ui/sheet";
 import { Checkbox } from "@components/ui/checkbox";
 import { Button } from "@components/ui/button";
-import SvgIcon from "@components/lib/SvgIcon.vue";
+import SvgIcon from "@components/ui/svg-icon";
 import productSrcset from "@assets/images/iphone-14.png?w=104;160;320;448&format=webp&as=srcset";
 import productPicture from "@assets/images/iphone-14.png";
 import Label from "@components/ui/label/Label.vue";
@@ -123,7 +123,12 @@ const modelValue = ref([250, 1500]);
                     <ComboboxInput
                       :display-value="(val) => val?.label ?? ''"
                       placeholder="Search"
-                    />
+                      ><template #icon>
+                        <SvgIcon
+                          name="search"
+                          class="size-6 p-1 text-[#989898]"
+                        /> </template
+                    ></ComboboxInput>
                   </ComboboxAnchor>
                   <ComboboxList align="start" class="w-[200px]">
                     <ComboboxEmpty> No brands found. </ComboboxEmpty>

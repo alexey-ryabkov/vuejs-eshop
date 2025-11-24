@@ -1,11 +1,11 @@
 import { API_BASE_URL, API_ENDPOINTS } from "@app/constants";
+import type { CategoriesList, Product, ProductsList } from "@app/types";
 import {
   categoriesListSchema,
   productSchema,
   productsListSchema,
 } from "@app/schemas";
 import { processApiRequest } from "@app/utils";
-import type { CategoriesList, Product, ProductsList } from "@app/types";
 
 export const fetchCategories = () =>
   processApiRequest<CategoriesList>(

@@ -3,7 +3,7 @@ import type { NumberFieldDecrementProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";
 import { reactiveOmit } from "@vueuse/core";
 import { NumberFieldDecrement, useForwardProps } from "reka-ui";
-import SvgIcon from "@components/lib/SvgIcon.vue";
+import SvgIcon from "@components/ui/svg-icon";
 import { cn } from "@shared/utils";
 
 const props = defineProps<

@@ -5,7 +5,7 @@ import type { ButtonVariants } from "@components/ui/button";
 import { reactiveOmit } from "@vueuse/core";
 import { PaginationNext, useForwardProps } from "reka-ui";
 import { cn } from "@shared/utils";
-import SvgIcon from "@components/lib/SvgIcon.vue";
+import SvgIcon from "@components/ui/svg-icon";
 import { buttonVariants } from "@components/ui/button";
 
 const props = withDefaults(

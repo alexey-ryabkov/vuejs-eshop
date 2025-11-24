@@ -7,6 +7,7 @@ import type {
 } from "@app/schemas";
 
 export type CategoriesList = z.infer<typeof categoriesListSchema>;
+export type Category = CategoriesList[number];
 export type Product = z.infer<typeof productSchema>;
 export type ProductsList = z.infer<typeof productsListSchema>;
 

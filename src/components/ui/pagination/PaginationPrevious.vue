@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "vue";
 import type { ButtonVariants } from "@components/ui/button";
 import { reactiveOmit } from "@vueuse/core";
 import { PaginationPrev, useForwardProps } from "reka-ui";
-import SvgIcon from "@components/lib/SvgIcon.vue";
+import SvgIcon from "@components/ui/svg-icon";
 import { cn } from "@shared/utils";
 import { buttonVariants } from "@components/ui/button";
 

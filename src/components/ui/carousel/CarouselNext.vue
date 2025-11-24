@@ -3,7 +3,7 @@ import type { WithClassAsProps } from "./interface";
 import type { ButtonVariants } from "@components/ui/button";
 import { cn } from "@shared/utils";
 import { Button } from "@components/ui/button";
-import SvgIcon from "@components/lib/SvgIcon.vue";
+import SvgIcon from "@components/ui/svg-icon";
 import { useCarousel } from "./useCarousel";
 
 const props = withDefaults(

@@ -45,15 +45,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       v-bind="{ ...forwarded, ...$attrs }"
     >
       <slot />
-
-      <!-- <DialogClose
-        class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
-      >
-        <Button variant="ghost" size="icon-lg" class="rounded-3xl">
-          <SvgIcon name="cross" class="size-10 p-2 text-primary" />
-        </Button>
-        <span class="sr-only">Close</span>
-      </DialogClose> -->
     </DialogContent>
   </DialogPortal>
 </template>
