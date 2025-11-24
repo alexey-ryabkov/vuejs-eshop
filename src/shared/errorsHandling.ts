@@ -1,6 +1,6 @@
 // biome-ignore-all lint/suspicious/noConfusingVoidType: cause its not
-import AppError from "./AppError";
-import type { ErrorHandler } from "./types";
+import AppError from "@shared/AppError";
+import type { ErrorHandler } from "@shared/types";
 
 export const inMuteErrorBoundary = <T = unknown>(
   func: () => T,

@@ -1,14 +1,20 @@
 import { ZodError, type ZodType } from "zod";
+import { isObject } from "@vueuse/core";
 import { toast, type ExternalToast } from "vue-sonner";
 import {
   AppErrorCode,
   type ApiRequest,
   type ApiStatusMessage,
+  type Category,
+  type Product,
 } from "@app/types";
+import { APP_ROUTES } from "@app/constants";
 import { statusMessageSchema } from "@app/schemas";
 import type { ErrorHandler } from "@shared/types";
 import { appErrorHandler, inErrorBoundary } from "@shared/errorsHandling";
 import AppError from "@shared/AppError";
+
+export * from "@shared/utils";
 
 export function processMalformedDate(val: string) {
   const parts = val.split(/[-\/\. ]+/);
@@ -74,6 +80,18 @@ export const showNotification = (
   msg: string,
   params?: ExternalToast
 ) => toast[type](msg, params);
+
+export const inQueryBoundary = <T = void>(fetchFn: () => Promise<T>) =>
+  inErrorBoundary<T>(
+    () => fetchFn(),
+    undefined,
+    (rawError: unknown) => {
+      const error = appErrorHandler(rawError);
+      error.original && console.error(error.original);
+      errorNotification(error.message);
+      return [];
+    }
+  );
 
 export const inNotificationBoundary = <T = unknown>(
   func: () => T | Promise<T>,
