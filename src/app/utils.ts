@@ -1,75 +1,9 @@
-import { ZodError, type ZodType } from "zod";
-import { isObject } from "@vueuse/core";
 import { toast, type ExternalToast } from "vue-sonner";
-import {
-  AppErrorCode,
-  type ApiRequest,
-  type ApiStatusMessage,
-  type Category,
-  type Product,
-} from "@app/types";
-import { APP_ROUTES } from "@app/constants";
-import { statusMessageSchema } from "@app/schemas";
 import type { ErrorHandler } from "@shared/types";
 import { appErrorHandler, inErrorBoundary } from "@shared/errorsHandling";
-import AppError from "@shared/AppError";
+import { withMinDuration } from "@shared/utils";
 
 export * from "@shared/utils";
-
-export function processMalformedDate(val: string) {
-  const parts = val.split(/[-\/\. ]+/);
-  if (parts.length !== 3) return val;
-
-  const [py, pa, pb] = parts.map((p) => Number(p));
-  if ([py, pa, pb].some((n) => Number.isNaN(n))) return val;
-
-  const fallback = tryMakeDate(py, pa, pb) || tryMakeDate(py, pb, pa);
-  if (fallback) return fallback;
-
-  return val;
-}
-function tryMakeDate(y: number, m: number, d: number): Date | null {
-  const date = new Date(y, m - 1, d);
-  if (Number.isNaN(date.getTime())) return null;
-  const yy = date.getFullYear();
-  if (yy < 1900 || yy > 3000) return null;
-  return date;
-}
-
-export async function processApiRequest<
-  T extends object | undefined = undefined
->(request: ApiRequest, schema: ZodType): Promise<T> {
-  try {
-    const response = await request();
-    if (response.ok) {
-      const resultRaw = await response.json();
-      const result = defineResponseSchema(schema).parse(resultRaw) as
-        | ApiStatusMessage
-        | T;
-      if (result && "message" in result) {
-        throw new AppError(result.message, AppErrorCode.api, response);
-      }
-      return result;
-    }
-    throw new AppError(
-      `HTTP-request ${response.status} error`,
-      response.status,
-      response
-    );
-  } catch (error) {
-    if (error instanceof ZodError) {
-      throw new AppError(
-        "Format of the API response is incorrect",
-        AppErrorCode.api,
-        error
-      );
-    }
-    throw new AppError("Unexpected API error", AppErrorCode.api, error);
-  }
-}
-
-export const defineResponseSchema = (responseSchema: ZodType) =>
-  responseSchema.or(statusMessageSchema);
 
 export const errorNotification = (msg: string) =>
   showNotification("error", msg);
@@ -80,6 +14,11 @@ export const showNotification = (
   msg: string,
   params?: ExternalToast
 ) => toast[type](msg, params);
+
+export const processQuery = <T = void>(
+  fetchFn: () => Promise<T>,
+  duration = 300
+) => withMinDuration(() => inQueryBoundary(fetchFn), duration);
 
 export const inQueryBoundary = <T = void>(fetchFn: () => Promise<T>) =>
   inErrorBoundary<T>(

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { processMalformedDate } from "@app/utils";
+import { processMalformedDate } from "./utils";
 
 export const characteristicSchema = z.object({
   characteristic: z.string(),
@@ -20,7 +20,6 @@ export const productSchema = z.object({
 
     return processMalformedDate(val);
   }, z.date()),
-  // createdAt: z.coerce.date(),
   price: z.number(),
   discount_price: z.number().nullable(),
   guarantee: z.number(),
@@ -37,15 +36,4 @@ export const productSchema = z.object({
   characteristics: z.array(characteristicSchema),
 });
 
-export const productsCategory = z.object({
-  id: z.number(),
-  name: z.string(),
-});
-
 export const productsListSchema = z.array(productSchema);
-
-export const categoriesListSchema = z.array(productsCategory);
-
-export const statusMessageSchema = z.object({
-  message: z.string(),
-});

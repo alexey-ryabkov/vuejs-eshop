@@ -16,6 +16,8 @@
       "@root/*": ["../*"],
       "@app/*": ["app/*"],
       "@layouts/*": ["layouts/*"],
+      "@api": ["api"],
+      "@entities/*": ["entities/*"],
       "@shared/*": ["shared/*"],
       "@composables/*": ["shared/composables/*"],
       "@store/*": ["store/*"],

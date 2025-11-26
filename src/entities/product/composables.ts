@@ -1,24 +1,17 @@
-import { useQuery } from "@tanstack/vue-query";
-import { fetchCategories, fetchProductData, fetchProducts } from "@app/api";
+import { useQuery, type QueryObserverOptions } from "@tanstack/vue-query";
 import { inQueryBoundary } from "@app/utils";
+import { fetchProductData, fetchProducts } from "./api";
 
-export function useCategories() {
-  return useQuery({
-    queryKey: ["categories"],
-    queryFn: () => inQueryBoundary(fetchCategories),
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
-}
-
-export function useProducts(categoryId?: number) {
+export function useProducts(
+  categoryId?: number,
+  opts?: Partial<QueryObserverOptions>
+) {
   return useQuery({
     queryKey: ["products", categoryId],
     queryFn: () => inQueryBoundary(() => fetchProducts(categoryId)),
-    // staleTime: 1_000 * 60,
-    // gcTime: 300_000,
     refetchOnWindowFocus: false,
     retry: false,
+    ...opts,
   });
 }
 
