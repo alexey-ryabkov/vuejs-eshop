@@ -14,7 +14,7 @@
       "@api": ["api"],
       "@entities/*": ["entities/*"],
       "@shared/*": ["shared/*"],
-      "@composables/*": ["shared/composables/*"],
+      "@composables": ["composables"],
       "@store/*": ["store/*"],
       "@features/*": ["features/*"],
       "@components/*": ["components/*"],

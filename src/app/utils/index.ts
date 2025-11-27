@@ -4,6 +4,7 @@ import { appErrorHandler, inErrorBoundary } from "@shared/errorsHandling";
 import { withMinDuration } from "@shared/utils";
 
 export * from "@shared/utils";
+export * from "./products";
 
 export const errorNotification = (msg: string) =>
   showNotification("error", msg);
