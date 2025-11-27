@@ -5,13 +5,12 @@ import {
 } from "@entities/product";
 import { processProduct } from "@app/utils";
 import { useProcessingWithMinDuration } from "@composables";
-
-type Product = ReturnType<typeof processProduct>;
+import type { ProductData } from "@app/types";
 
 export function useProducts(args: { productId: number; categoryId?: number }): {
   isLoading: Ref<boolean>;
   isError: Ref<boolean>;
-  result: Ref<Product | undefined>;
+  result: Ref<ProductData | undefined>;
 };
 export function useProducts(args?: {
   productId?: undefined;
@@ -19,9 +18,9 @@ export function useProducts(args?: {
 }): {
   isLoading: Ref<boolean>;
   isError: Ref<boolean>;
-  result: Ref<Product[] | undefined>;
+  result: Ref<ProductData[] | undefined>;
 };
-export default function useProducts({
+export function useProducts({
   categoryId,
   productId,
 }: {
@@ -32,7 +31,7 @@ export default function useProducts({
     ? useProductBase(productId)
     : useProductsBase(categoryId);
 
-  const { isLoading, result } = useProcessingWithMinDuration<Product>(
+  const { isLoading, result } = useProcessingWithMinDuration<ProductData>(
     data,
     processProduct
   );

@@ -1,3 +1,5 @@
+import type { processProduct } from "@app/utils";
+
 export * from "@shared/types";
 
 export enum AppErrorCode {
@@ -8,3 +10,5 @@ export enum AppErrorCode {
   apiClient = 400,
   apiServer = 500,
 }
+
+export type ProductData = ReturnType<typeof processProduct>;

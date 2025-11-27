@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue";
+import { computed, type HTMLAttributes } from "vue";
 import { reactiveOmit } from "@vueuse/core";
 import {
   type ComboboxInputEmits,
@@ -7,8 +7,11 @@ import {
   ComboboxInput,
   useForwardPropsEmits,
 } from "reka-ui";
+import { CircleX } from "lucide-vue-next";
+
 import { InputGroup, InputGroupAddon } from "@components/ui/input-group";
 import type { InputVariants } from "@components/ui/input";
+import { Button } from "@components/ui/button";
 import { cn } from "@shared/utils";
 
 defineOptions({
@@ -28,6 +31,10 @@ const emits = defineEmits<ComboboxInputEmits>();
 const delegatedProps = reactiveOmit(props, ["class", "size"]);
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const query = computed({
+  get: () => props.modelValue,
+  set: (v) => emits("update:modelValue", v ?? ""),
+});
 </script>
 
 <template>
@@ -46,8 +53,13 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       >
         <slot />
       </ComboboxInput>
-      <InputGroupAddon v-if="$slots.icon">
+      <InputGroupAddon align="inline-start" v-if="$slots.icon">
         <slot name="icon" />
+      </InputGroupAddon>
+      <InputGroupAddon align="inline-end" v-if="query?.length">
+        <Button @click="query = ''" size="icon-sm" variant="ghost">
+          <CircleX width="24" />
+        </Button>
       </InputGroupAddon>
     </InputGroup>
   </div>

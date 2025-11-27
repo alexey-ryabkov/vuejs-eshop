@@ -1,6 +1,6 @@
 import { computed } from "vue";
 import { type Product } from "@entities/product";
-import useProducts from "./useProducts";
+import { useProducts } from "./useProducts";
 
 type ProductsViewParams<T = Product> = {
   categoryId?: number;
