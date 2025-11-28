@@ -26,7 +26,7 @@ const router = createRouter({
         { path: ":id", component: ProductPage },
       ],
     },
-    { path: APP_ROUTES.FAVORITIES, component: FavoritesPage },
+    { path: APP_ROUTES.FAVORITES, component: FavoritesPage },
     { path: APP_ROUTES.CART, component: CartPage },
     { path: APP_ROUTES.UNKNOWN, component: Error404Page },
     { path: "/:pathMatch(.*)*", redirect: APP_ROUTES.UNKNOWN },

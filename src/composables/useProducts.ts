@@ -1,4 +1,4 @@
-import { type Ref } from "vue";
+import { type MaybeRefOrGetter, type Ref } from "vue";
 import {
   useProducts as useProductsBase,
   useProduct as useProductBase,
@@ -7,15 +7,20 @@ import { processProduct } from "@app/utils";
 import { useProcessingWithMinDuration } from "@composables";
 import type { ProductData } from "@app/types";
 
-export function useProducts(args: { productId: number; categoryId?: number }): {
+type UseProductsArgs = {
+  categoryId?: number;
+  productId?: number;
+  enabled?: MaybeRefOrGetter<boolean>;
+};
+
+export function useProducts(args: UseProductsArgs & { productId: number }): {
   isLoading: Ref<boolean>;
   isError: Ref<boolean>;
   result: Ref<ProductData | undefined>;
 };
-export function useProducts(args?: {
-  productId?: undefined;
-  categoryId?: number;
-}): {
+export function useProducts(
+  args?: UseProductsArgs & { productId?: undefined }
+): {
   isLoading: Ref<boolean>;
   isError: Ref<boolean>;
   result: Ref<ProductData[] | undefined>;
@@ -23,13 +28,11 @@ export function useProducts(args?: {
 export function useProducts({
   categoryId,
   productId,
-}: {
-  categoryId?: number;
-  productId?: number;
-} = {}) {
+  enabled,
+}: UseProductsArgs = {}) {
   const { isError, data } = productId
-    ? useProductBase(productId)
-    : useProductsBase(categoryId);
+    ? useProductBase(productId, { enabled })
+    : useProductsBase(categoryId, { enabled });
 
   const { isLoading, result } = useProcessingWithMinDuration<ProductData>(
     data,

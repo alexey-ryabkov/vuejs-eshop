@@ -2,7 +2,7 @@ export const enum APP_ROUTES {
   MAIN = "/",
   CATEGORIES = "/categories",
   PRODUCTS = "/products",
-  FAVORITIES = "/favorites",
+  FAVORITES = "/favorites",
   CART = "/cart",
   UNKNOWN = "/404",
 }

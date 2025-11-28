@@ -1,30 +1,55 @@
-import { computed } from "vue";
-import { type Product } from "@entities/product";
+import { computed, toValue, type MaybeRefOrGetter } from "vue";
+import { type ProductData } from "@app/types";
 import { useProducts } from "./useProducts";
 
-type ProductsViewParams<T = Product> = {
+type ProductsViewParams = {
   categoryId?: number;
-  sorting?: (a: T, b: T) => number;
-  filter?: (products: T[]) => T[];
+  sorting?: (a: ProductData, b: ProductData) => number;
+  filter?: (
+    products: ProductData,
+    index?: number,
+    array?: ProductData[]
+  ) => boolean;
   limit?: number;
   offset?: number;
+  enabled?: MaybeRefOrGetter<boolean>;
 };
 
-const DEF_PRODUCTS_LIMIT = Number.POSITIVE_INFINITY;
 export default function useProductsView(
-  { categoryId, sorting, filter, limit, offset }: ProductsViewParams = {
-    limit: DEF_PRODUCTS_LIMIT,
+  {
+    categoryId,
+    sorting,
+    filter,
+    limit,
+    offset,
+    enabled,
+  }: ProductsViewParams = {
     offset: 0,
   }
 ) {
-  const { isLoading, isError, result: products } = useProducts({ categoryId });
+  const {
+    isLoading,
+    isError,
+    result: products,
+  } = useProducts({ categoryId, enabled });
 
   const view = computed(() => {
-    if (!products.value) return;
+    let result = toValue(products)!;
+    if (!result) return;
 
-    // TODO products tackling...
+    if (filter) {
+      result = result.filter(filter);
+    }
 
-    return products.value;
+    if (sorting) {
+      result.sort(sorting);
+    }
+
+    const from = offset ?? 0;
+    const to = limit !== undefined && limit > 0 ? from + limit : undefined;
+    result = result.slice(from, to);
+
+    return result;
   });
 
   return { isLoading, isError, products: view };
