@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { nextTick, ref, watch, watchEffect, type HTMLAttributes } from "vue";
+import { nextTick, ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
-import { reactiveOmit } from "@vueuse/core";
 import {
   useForwardPropsEmits,
   type ComboboxRootEmits,
