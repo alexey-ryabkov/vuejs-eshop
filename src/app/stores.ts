@@ -1,7 +1,6 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
-
-import type { CartItem, Product } from "@app/types";
+import type { CartItem } from "@app/types";
 
 export const useStore = defineStore(
   "main",
@@ -9,35 +8,40 @@ export const useStore = defineStore(
     const cart = ref<CartItem[]>([]);
     const favorites = ref<number[]>([]);
 
-    const totalCount = computed(() =>
-      cart.value.reduce((s, it) => s + it.quantity, 0)
+    const cartItemsCount = computed(() =>
+      cart.value.reduce((sum, { quantity }) => sum + quantity, 0)
     );
-    const findIndex = (id: number) => cart.value.findIndex((i) => i.id === id);
+    const findInCartKey = (id: number) =>
+      cart.value.findIndex(({ id: itemId }) => itemId === id);
 
-    function addToCart(item: Product, quantity = 1) {
-      const idx = findIndex(item.id);
-      if (idx >= 0) {
-        cart.value[idx].quantity += quantity;
+    function isInCart(id: number) {
+      return findInCartKey(id) >= 0;
+    }
+
+    function addToCart(id: number, quantity = 1) {
+      const key = findInCartKey(id);
+      if (key >= 0) {
+        cart.value[key].quantity += quantity;
       } else {
         cart.value.push({
-          ...item,
+          id,
           quantity,
         });
       }
     }
 
-    function setQuantity(id: number, quantity: number) {
-      const idx = findIndex(id);
-      if (idx >= 0) {
-        if (quantity <= 0) cart.value.splice(idx, 1);
-        else cart.value[idx].quantity = quantity;
+    function setInCartQuantity(id: number, quantity: number) {
+      const key = findInCartKey(id);
+      if (key >= 0) {
+        if (quantity <= 0) cart.value.splice(key, 1);
+        else cart.value[key].quantity = quantity;
       }
     }
 
     function removeFromCart(id: number) {
-      const idx = findIndex(id);
-      if (idx >= 0) {
-        cart.value.splice(idx, 1);
+      const key = findInCartKey(id);
+      if (key >= 0) {
+        cart.value.splice(key, 1);
       }
     }
 
@@ -45,26 +49,32 @@ export const useStore = defineStore(
       cart.value = [];
     }
 
+    function isFavorite(id: number) {
+      return favorites.value.includes(id);
+    }
+
     function toggleFavorite(id: number) {
-      const i = favorites.value.indexOf(id);
-      if (i >= 0) favorites.value.splice(i, 1);
+      const key = favorites.value.indexOf(id);
+      if (key >= 0) favorites.value.splice(key, 1);
       else favorites.value.push(id);
     }
 
-    function isFavorite(id: number) {
-      return favorites.value.includes(id);
+    function clearFavorites() {
+      favorites.value = [];
     }
 
     return {
       cart,
       favorites,
-      totalCount,
+      cartItemsCount,
+      isInCart,
       addToCart,
-      setquantity: setQuantity,
+      setInCartQuantity,
       removeFromCart,
       clearCart,
-      toggleFavorite,
       isFavorite,
+      toggleFavorite,
+      clearFavorites,
     };
   },
   {

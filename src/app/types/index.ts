@@ -12,3 +12,8 @@ export enum AppErrorCode {
 }
 
 export type ProductData = ReturnType<typeof processProduct>;
+
+export type CartItem = {
+  id: number;
+  quantity: number;
+};
