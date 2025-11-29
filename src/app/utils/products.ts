@@ -55,3 +55,21 @@ function buildSku(name: string): string {
 
 const calcFinalPrice = ({ discount_price, price }: Product) =>
   discount_price ?? price;
+
+export const isProductAvailiable = ({ is_available }: Product) =>
+  !!is_available;
+
+export const isProductDiscounted = ({ discount_price, price }: Product) =>
+  discount_price ? discount_price < price : false;
+
+export const getDiscountAmount = ({ discount_price, price }: Product) => {
+  discount_price ??= price;
+  const amount = price - discount_price;
+  return amount > 0 ? amount : 0;
+};
+
+export const getDiscountPercent = (product: Product) => {
+  const discount = getDiscountAmount(product);
+  const { price } = product;
+  return price > 0 ? Math.round((100 * discount) / price) : 0;
+};

@@ -1,27 +1,34 @@
-import { computed, toValue, type MaybeRefOrGetter } from "vue";
-import { type ProductData } from "@app/types";
+import {
+  computed,
+  toValue,
+  unref,
+  type MaybeRef,
+  type MaybeRefOrGetter,
+} from "vue";
+import type {
+  FilterProductsFn,
+  ProductsCategorySorting,
+  SortingProductsFn,
+} from "@app/types";
+import { getSortingFn } from "@features/products-list/utils";
 import { useProducts } from "./useProducts";
 
 type ProductsViewParams = {
   categoryId?: number;
-  sorting?: (a: ProductData, b: ProductData) => number;
-  filter?: (
-    products: ProductData,
-    index?: number,
-    array?: ProductData[]
-  ) => boolean;
+  sorting?: MaybeRef<SortingProductsFn | ProductsCategorySorting>;
+  filter?: MaybeRef<FilterProductsFn>;
   limit?: number;
-  offset?: number;
+  offset?: MaybeRefOrGetter<number>;
   enabled?: MaybeRefOrGetter<boolean>;
 };
 
 export default function useProductsView(
   {
     categoryId,
-    sorting,
-    filter,
+    sorting: sortingRaw,
+    filter: filterRaw,
     limit,
-    offset,
+    offset: offsetRaw,
     enabled,
   }: ProductsViewParams = {
     offset: 0,
@@ -30,22 +37,26 @@ export default function useProductsView(
   const {
     isLoading,
     isError,
-    result: products,
+    result: productsRaw,
   } = useProducts({ categoryId, enabled });
 
   const view = computed(() => {
-    let result = toValue(products)!;
-    if (!result) return;
+    let products = toValue(productsRaw)!;
+    if (!products) return;
 
+    let result = products.slice();
+
+    const filter = unref(filterRaw);
     if (filter) {
       result = result.filter(filter);
     }
 
+    const sorting = unref(sortingRaw);
     if (sorting) {
-      result.sort(sorting);
+      result.sort(typeof sorting == "string" ? getSortingFn(sorting) : sorting);
     }
 
-    const from = offset ?? 0;
+    const from = toValue(offsetRaw) ?? 0;
     const to = limit !== undefined && limit > 0 ? from + limit : undefined;
     result = result.slice(from, to);
 

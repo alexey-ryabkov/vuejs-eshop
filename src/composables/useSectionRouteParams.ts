@@ -8,31 +8,36 @@ export default function useSectionRouteParams() {
   const router = useRouter();
 
   const page = ref<number>(Number(route.query.page ?? 1));
+  const sorting = ref<string>((route.query.sorting as string) ?? "");
+  // TODO проверка корректности сортировки? по enum
+
   // TODO define filters refs from route query params
-  // TODO define soring ref from route query params
 
   const sync = () => {
     const query: Record<string, any> = {};
     // TODO sync filters n sorting
     if (page.value && page.value !== 1) query.page = String(page.value);
+    if (sorting.value) query.sorting = sorting.value;
     router.replace({ query });
   };
   const syncDebounced = useDebounceFn(sync, DEBOUNCE_SYNC_MS);
-  // TODO watch filters n sorting
-  watch([page], () => {
+  // TODO watch filters
+  watch([page, sorting], () => {
     syncDebounced();
   });
 
   watch(
     () => route.query,
-    (qNew) => {
-      // TODO set filters n sorting
-      page.value = Number(qNew.page ?? 1);
+    (newQuery) => {
+      // TODO set filters
+      page.value = Number(newQuery.page ?? 1);
+      sorting.value = newQuery.sorting ?? "";
     }
   );
 
-  // TODO return filters n sorting
+  // TODO return filters
   return {
     page,
+    sorting,
   };
 }
