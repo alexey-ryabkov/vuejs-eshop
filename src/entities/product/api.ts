@@ -7,9 +7,9 @@ export const fetchProducts = (categoryId?: number) =>
   processApiRequest<ProductsList>(
     () =>
       fetch(
-        `${API_BASE_URL}${API_ENDPOINTS.PRODUCT}${
-          categoryId ? `/${categoryId}` : ""
-        }`
+        `${API_BASE_URL}${
+          categoryId ? API_ENDPOINTS.CATEGORY : API_ENDPOINTS.PRODUCT
+        }${categoryId ? `/${categoryId}` : ""}`
       ),
     productsListSchema
   );
