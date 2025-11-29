@@ -13,3 +13,8 @@ export const enum API_ENDPOINTS {
   PRODUCT = "/api/products",
   IMAGE = "/",
 }
+export const PRODUCTS_CATEGORY_SORTINGS = {
+  rating: "By rating",
+  name: "By name",
+  price: "By price",
+} as const;

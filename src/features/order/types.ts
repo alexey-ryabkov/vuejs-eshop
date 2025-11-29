@@ -1,9 +1,7 @@
-import type { CartItem, ProductData } from "@app/types";
-
-export type OrderItem = ProductData & CartItem;
+import type { CartItemProduct } from "@app/types";
 
 export type Order = {
   coupon?: string;
   bonus_card?: number;
-  items: OrderItem[];
+  items: CartItemProduct[];
 };
