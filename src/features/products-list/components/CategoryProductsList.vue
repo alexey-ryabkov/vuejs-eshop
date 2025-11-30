@@ -1,14 +1,13 @@
 <script setup lang="ts">
+import { inject } from "vue";
+
 import { useCategoryProducts } from "@features/products-list/composables";
 import NotFound from "@components/ui/not-found/NotFound.vue";
 import { Preloader } from "@components/ui/preloader";
 import { ProductsList } from "./products-list";
 
-const { isLoading, isError, products } = useCategoryProducts(9);
-
-// watchEffect(() =>
-//   products.value?.forEach(({ full_title }) => console.log(`${full_title}, `))
-// );
+const itemsPerPage = inject("items_per_page", 10);
+const { isLoading, isError, products } = useCategoryProducts(itemsPerPage);
 </script>
 
 <template>

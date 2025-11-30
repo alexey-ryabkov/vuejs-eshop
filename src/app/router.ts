@@ -2,7 +2,7 @@ import { APP_ROUTES } from "@app/constants";
 import { createRouter, createWebHistory } from "vue-router";
 
 const MainPage = () => import("@views/main");
-const CategoryPage = () => import("@views/Category.vue");
+const CategoryPage = () => import("@views/category");
 const ProductPage = () => import("@views/product");
 const FavoritesPage = () => import("@views/Favorites.vue");
 const CartPage = () => import("@views/Cart.vue");

@@ -27,6 +27,8 @@ export const sortByDiscountPercent = (a: ProductData, b: ProductData) =>
 
 export const shuffle = () => Math.random() - 0.5;
 
+export const noSort = (_: ProductData, __: ProductData) => 0;
+
 export function getSortingFn(sorting: ProductsCategorySorting) {
   switch (sorting) {
     case "rating":
@@ -36,6 +38,6 @@ export function getSortingFn(sorting: ProductsCategorySorting) {
     case "price":
       return sortByPrice;
     default:
-      return sortByArriving;
+      return noSort;
   }
 }
