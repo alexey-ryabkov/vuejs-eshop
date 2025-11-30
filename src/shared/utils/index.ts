@@ -36,3 +36,16 @@ export function capitalizeFirst(item?: string) {
   if (!item) return "";
   return item[0].toUpperCase() + item.slice(1);
 }
+
+export function castArray<T = unknown>(item: T) {
+  if (Array.isArray(item)) return item;
+  if (
+    item &&
+    typeof item === "object" &&
+    "length" in item &&
+    typeof item.length === "number"
+  ) {
+    return Array.from(item as ArrayLike<T>);
+  }
+  return [item];
+}
