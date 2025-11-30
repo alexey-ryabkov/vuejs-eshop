@@ -1,4 +1,8 @@
-export { useProducts } from "./useProducts";
+export { default as useCachedProducts } from "./useCachedProducts";
+export { default as useCategoryRoute } from "./useCategoryRoute";
 export { default as useProcessingWithMinDuration } from "./useProcessingWithMinDuration";
+export { default as useProductActions } from "./useProductActions";
+export { useProducts } from "./useProducts";
+export { default as useProductStatus } from "./useProductStatus";
 export { default as useProductsView } from "./useProductsView";
 export { default as useSectionRouteParams } from "./useSectionRouteParams";
