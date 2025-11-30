@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const MainPage = () => import("@views/main");
 const CategoryPage = () => import("@views/Category.vue");
-const ProductPage = () => import("@views/Product.vue");
+const ProductPage = () => import("@views/product");
 const FavoritesPage = () => import("@views/Favorites.vue");
 const CartPage = () => import("@views/Cart.vue");
 const Error404Page = () => import("@views/Error404.vue");
