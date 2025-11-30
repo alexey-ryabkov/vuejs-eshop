@@ -1,8 +1,6 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
-import TwcssConf from "@root/tailwind.config.js";
-
-const { breakpoints } = TwcssConf;
-type BreakpointFlags = Record<keyof typeof breakpoints, boolean>;
+import type { BreakpointFlags } from "@app/types";
+import { BREAKPOINS } from "@app/constants";
 
 export function useBreakpoints() {
   const width = ref(window.innerWidth);
@@ -22,11 +20,11 @@ export function useBreakpoints() {
   const flags = computed<BreakpointFlags>(() => {
     const w = width.value;
     return Object.fromEntries(
-      Object.entries(breakpoints).map(([name, bp]) => [name, w >= bp])
+      Object.entries(BREAKPOINS).map(([name, bp]) => [name, w >= bp])
     ) as BreakpointFlags;
   });
 
-  const isMobile = computed(() => width.value < breakpoints.sm);
+  const isMobile = computed(() => width.value < BREAKPOINS.sm);
 
   return {
     breakpoints: flags,

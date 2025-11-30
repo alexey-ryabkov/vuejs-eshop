@@ -5,7 +5,7 @@ import { processCategory } from "./utils";
 
 type Category = ReturnType<typeof processCategory>;
 
-export function useCategories() {
+export default function useCategories() {
   const { isError, data } = useCategoriesBase();
 
   const { isLoading, result } = useProcessingWithMinDuration<Category>(

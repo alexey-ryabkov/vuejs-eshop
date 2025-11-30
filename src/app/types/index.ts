@@ -1,4 +1,4 @@
-import type { PRODUCTS_CATEGORY_SORTINGS } from "@app/constants";
+import type { BREAKPOINS, PRODUCTS_CATEGORY_SORTINGS } from "@app/constants";
 import type { processProduct } from "@app/utils";
 import type { FilterFn, SortingFn } from "@shared/types";
 
@@ -26,3 +26,5 @@ export type SortingProductsFn = SortingFn<ProductData>;
 export type FilterProductsFn = FilterFn<ProductData>;
 
 export type ProductsCategorySorting = keyof typeof PRODUCTS_CATEGORY_SORTINGS;
+
+export type BreakpointFlags = Record<keyof typeof BREAKPOINS, boolean>;

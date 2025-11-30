@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import { Ban } from "lucide-vue-next";
 
 import {
   Carousel,
@@ -9,20 +8,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@components/ui/carousel";
-import {
-  Empty,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@components/ui/empty";
 import { Preloader } from "@components/ui/preloader";
 import SvgIcon from "@components/ui/svg-icon/SvgIcon.vue";
-import { useCategories } from "./composables";
+import { NotFound } from "@components/ui/not-found";
+import useCategories from "./useCategories";
 
 const DUMMY_CAROUSEL_PAGES_COUNT = 3;
 
 const { isLoading, isError, categories } = useCategories();
-const hasCategories = computed(() => !!categories.value?.length);
+const hasCategories = computed(
+  () => !isError.value && !!categories.value?.length
+);
 </script>
 
 <template>
@@ -35,15 +31,9 @@ const hasCategories = computed(() => !!categories.value?.length);
     <div
       class="flex justify-end items-center gap-3 mb-12 sm:mb-7 not-has-[+[data-slot='carousel-content']]:mb-0"
     >
-      <slot name="caption"></slot>
-      <CarouselPrevious
-        v-if="!isError && hasCategories"
-        class="static translate-none hover:bg-[#EDEDED]"
-      />
-      <CarouselNext
-        v-if="!isError && hasCategories"
-        class="static translate-none hover:bg-[#EDEDED]"
-      />
+      <slot name="caption" />
+      <CarouselPrevious class="static translate-none hover:bg-[#EDEDED]" />
+      <CarouselNext class="static translate-none hover:bg-[#EDEDED]" />
     </div>
     <div
       v-if="isLoading"
@@ -51,7 +41,8 @@ const hasCategories = computed(() => !!categories.value?.length);
     >
       <Preloader :size="6">Load categories...</Preloader>
     </div>
-    <CarouselContent v-else-if="!isError && hasCategories" class="m-0">
+    <NotFound v-else-if="!hasCategories" subject="categories" />
+    <CarouselContent v-show="!isLoading && hasCategories" class="m-0">
       <CarouselItem
         v-for="(_, index) in DUMMY_CAROUSEL_PAGES_COUNT"
         :key="index"
@@ -75,13 +66,6 @@ const hasCategories = computed(() => !!categories.value?.length);
         </RouterLink>
       </CarouselItem>
     </CarouselContent>
-    <Empty v-else>
-      <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <Ban />
-        </EmptyMedia>
-        <EmptyTitle>Categories not found...</EmptyTitle>
-      </EmptyHeader>
-    </Empty>
+    <slot />
   </Carousel>
 </template>

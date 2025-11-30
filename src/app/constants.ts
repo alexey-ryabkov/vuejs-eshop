@@ -1,3 +1,5 @@
+import TwcssConf from "@root/tailwind.config.js";
+
 export const enum APP_ROUTES {
   MAIN = "/",
   CATEGORIES = "/categories",
@@ -18,3 +20,6 @@ export const PRODUCTS_CATEGORY_SORTINGS = {
   name: "By name",
   price: "By price",
 } as const;
+
+const { breakpoints } = TwcssConf;
+export const BREAKPOINS = breakpoints;
