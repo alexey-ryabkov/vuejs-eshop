@@ -1,6 +1,6 @@
 import { toValue } from "vue";
 
-import { isProductAvailiable } from "@app/utils";
+import { isProductAvailiable } from "@utils";
 import { useProductsView, useCategoryRoute } from "@composables";
 
 export default function useCategoryProducts(count?: number) {

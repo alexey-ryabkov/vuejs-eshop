@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject } from "vue";
 
-import type { ProductsCategorySorting } from "@app/types";
+import type { ProductsCategorySorting } from "@types";
 import { PRODUCTS_CATEGORY_SORTINGS } from "@app/constants";
 import useCategory from "@features/category/useCategory";
 import {
@@ -11,16 +11,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@components/ui/select";
+} from "@ui/select";
 
 const { sorting: sortingRaw } = useCategory();
 
 const defaultSorting = inject("default_sorting", "");
 const sorting = computed({
   get: () => sortingRaw.value || (defaultSorting ?? ""),
-  set: (val: string) => {
-    sortingRaw.value = val as ProductsCategorySorting;
-  },
+  set: (val: string) => (sortingRaw.value = val as ProductsCategorySorting),
 });
 </script>
 

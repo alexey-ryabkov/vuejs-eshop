@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { isProductDiscounted } from "@app/utils";
+import { isProductDiscounted } from "@utils";
 import { useCachedProducts } from "@composables";
 import { sortByDiscountPercent } from "@features/products-list/utils";
-import { Preloader } from "@components/ui/preloader";
+import { Preloader } from "@ui/preloader";
 import { ProductsList } from "./products-list";
 
 const { isLoading, isError, products } = useCachedProducts({

@@ -1,5 +1,5 @@
-import type { ProductData, ProductsCategorySorting } from "@app/types";
-import { getDiscountAmount, getDiscountPercent } from "@app/utils";
+import type { ProductData, ProductsCategorySorting } from "@types";
+import { getDiscountAmount, getDiscountPercent } from "@utils";
 
 export const sortByArriving = (a: ProductData, b: ProductData) => {
   if (a === undefined || b === undefined) {

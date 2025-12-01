@@ -3,7 +3,7 @@ import type { CheckboxRootEmits, CheckboxRootProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";
 import { reactiveOmit } from "@vueuse/core";
 import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from "reka-ui";
-import SvgIcon from "@components/ui/svg-icon";
+import SvgIcon from "@ui/svg-icon";
 import { cn } from "@shared/utils";
 
 const props = defineProps<

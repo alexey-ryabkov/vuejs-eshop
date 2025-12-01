@@ -1,12 +1,12 @@
-import { APP_ROUTES } from "@app/constants";
 import { createRouter, createWebHistory } from "vue-router";
+import { APP_ROUTES } from "@app/constants";
 
 const MainPage = () => import("@views/main");
 const CategoryPage = () => import("@views/category");
 const ProductPage = () => import("@views/product");
-const FavoritesPage = () => import("@views/Favorites.vue");
-const CartPage = () => import("@views/Cart.vue");
-const Error404Page = () => import("@views/Error404.vue");
+const FavoritesPage = () => import("@views/favorities");
+const CartPage = () => import("@views/cart");
+const Error404Page = () => import("@views/error404");
 
 const router = createRouter({
   history: createWebHistory(),

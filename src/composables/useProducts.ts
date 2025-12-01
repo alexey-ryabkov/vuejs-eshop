@@ -1,11 +1,11 @@
-import { type MaybeRefOrGetter, type Ref } from "vue";
+import { watchEffect, type MaybeRefOrGetter, type Ref } from "vue";
 import {
   useProducts as useProductsBase,
   useProduct as useProductBase,
 } from "@entities/product";
-import { processProduct } from "@app/utils";
+import { processProduct } from "@utils";
 import { useProcessingWithMinDuration } from "@composables";
-import type { ProductData } from "@app/types";
+import type { ProductData } from "@types";
 
 type UseProductsArgs = {
   categoryId?: number;

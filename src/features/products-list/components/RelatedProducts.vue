@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDummyListProducts } from "@features/products-list/composables";
-import { Preloader } from "@components/ui/preloader";
+import { Preloader } from "@ui/preloader";
 import { ProductsList } from "./products-list";
 
 const props = withDefaults(

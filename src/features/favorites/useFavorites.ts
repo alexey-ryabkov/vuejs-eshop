@@ -1,7 +1,7 @@
 import { computed } from "vue";
 import { useProductsView } from "@composables";
-import { useStore } from "@app/stores";
-import type { ProductData } from "@app/types";
+import { useStore } from "@app/store";
+import type { ProductData } from "@types";
 
 export default function useFavorites() {
   const store = useStore();

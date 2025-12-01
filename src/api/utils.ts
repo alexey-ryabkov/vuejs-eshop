@@ -1,6 +1,6 @@
 import { ZodError, type ZodType } from "zod";
 import AppError from "@shared/AppError";
-import { AppErrorCode } from "@app/types";
+import { AppErrorCode } from "@types";
 import type { ApiRequest, ApiStatusMessage } from "./types";
 import { statusMessageSchema } from "./schemas";
 

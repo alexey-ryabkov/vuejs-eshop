@@ -1,4 +1,5 @@
 export { default as cn } from "./cn";
+export * from "./errorsHandling";
 
 export async function withMinDuration<T>(
   fn: () => Promise<T>,
@@ -48,4 +49,17 @@ export function castArray<T = unknown>(item: T) {
     return Array.from(item as ArrayLike<T>);
   }
   return [item];
+}
+
+export function toNumber(value: unknown): number | null {
+  if (typeof value === "number") return value;
+
+  if (typeof value === "string") {
+    const n = Number(value.trim());
+    return Number.isFinite(n) ? n : null;
+  }
+
+  if (typeof value === "boolean") return value ? 1 : 0;
+
+  return null;
 }

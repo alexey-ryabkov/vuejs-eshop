@@ -1,5 +1,5 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
-import type { BreakpointFlags } from "@app/types";
+import type { BreakpointFlags } from "@types";
 import { BREAKPOINS } from "@app/constants";
 
 export function useBreakpoints() {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import BaseLayout from "@layouts/base";
-import { Toaster } from "@components/ui/sonner";
-import "@app/styles/global.css";
+import { Toaster } from "@ui/sonner";
+import "@styles/global.css";
 import "virtual:svg-icons-register";
 import "vue-sonner/style.css";
 </script>

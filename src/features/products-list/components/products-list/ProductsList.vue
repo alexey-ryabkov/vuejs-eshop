@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from "vue";
-import type { ProductData } from "@app/types";
+import type { ProductData } from "@types";
 import { cn } from "@shared/utils";
 import ProductCard from "../ProductCard.vue";
 import { productListVariants, type ProductListVariants } from ".";

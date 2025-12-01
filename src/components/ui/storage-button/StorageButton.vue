@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { type HTMLAttributes } from "vue";
-import { Button } from "@components/ui/button";
-import { Badge } from "@components/ui/badge";
-import SvgIcon from "@components/ui/svg-icon";
+import { Button } from "@ui/button";
+import { Badge } from "@ui/badge";
+import SvgIcon from "@ui/svg-icon";
 import { cn } from "@shared/utils";
 import { storageButtonVariants, type StorageButtonVariants } from ".";
 

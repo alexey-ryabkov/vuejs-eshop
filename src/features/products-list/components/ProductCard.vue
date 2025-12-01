@@ -2,7 +2,7 @@
 import { useProductActions, useProductStatus } from "@composables";
 import ProductPreview, {
   type ProductPreviewProps,
-} from "@components/lib/product-preview";
+} from "@widgets/product-preview";
 
 const product = defineProps<
   Omit<ProductPreviewProps, "isFavorite"> & { id: number }

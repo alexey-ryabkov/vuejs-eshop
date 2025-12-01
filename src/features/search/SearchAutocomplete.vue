@@ -7,7 +7,7 @@ import {
   type ComboboxRootProps,
 } from "reka-ui";
 
-import type { ProductData } from "@app/types";
+import type { ProductData } from "@types";
 import { useProducts } from "@composables";
 import {
   Combobox,
@@ -17,9 +17,9 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@components/ui/combobox";
-import { Spinner } from "@components/ui/spinner";
-import SvgIcon from "@components/ui/svg-icon";
+} from "@widgets/combobox";
+import { Spinner } from "@ui/spinner";
+import SvgIcon from "@ui/svg-icon";
 
 defineOptions({
   inheritAttrs: false,

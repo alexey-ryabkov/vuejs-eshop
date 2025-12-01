@@ -9,7 +9,7 @@ import type {
   FilterProductsFn,
   ProductsCategorySorting,
   SortingProductsFn,
-} from "@app/types";
+} from "@types";
 import { getSortingFn } from "@features/products-list/utils";
 import { useProducts } from "./useProducts";
 

@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { Ban } from "lucide-vue-next";
 
-import {
-  Empty,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@components/ui/empty";
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@ui/empty";
 import { capitalizeFirst, cn } from "@shared/utils";
 import { notFoundVariants } from ".";
 

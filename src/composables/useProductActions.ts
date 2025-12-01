@@ -1,7 +1,7 @@
 import { useRouter } from "vue-router";
 
 import { APP_ROUTES } from "@app/constants";
-import { useStore } from "@app/stores";
+import { useStore } from "@app/store";
 
 export default function useProductActions(id: number) {
   const router = useRouter();

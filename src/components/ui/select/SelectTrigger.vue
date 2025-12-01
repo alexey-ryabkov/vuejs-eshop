@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "vue";
 import { reactiveOmit } from "@vueuse/core";
 import { SelectIcon, SelectTrigger, useForwardProps } from "reka-ui";
 import { cn } from "@shared/utils";
-import SvgIcon from "@components/ui/svg-icon";
+import SvgIcon from "@ui/svg-icon";
 
 const props = withDefaults(
   defineProps<

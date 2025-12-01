@@ -8,7 +8,7 @@ import {
   CarouselContent,
   CarouselItem,
   type CarouselApi,
-} from "@components/ui/carousel";
+} from "@widgets/carousel";
 import { useBreakpoints } from "@shared/useBreakpoints";
 
 const { data } = useProduct();

@@ -15,15 +15,19 @@
       "@/*": ["/*"],
       "@root/*": ["../*"],
       "@app/*": ["app/*"],
-      "@layouts/*": ["layouts/*"],
       "@api": ["api"],
       "@entities/*": ["entities/*"],
       "@shared/*": ["shared/*"],
       "@composables": ["composables"],
-      "@store/*": ["store/*"],
       "@features/*": ["features/*"],
       "@components/*": ["components/*"],
-      "@views/*": ["views/*"]
+      "@widgets/*": ["components/lib/*"],
+      "@ui/*": ["components/ui/*"],
+      "@layouts/*": ["components/containers/*-layout"],
+      "@views/*": ["components/containers/*-view"],
+      "@utils": ["utils"],
+      "@types": ["types"],
+      "@styles/*": ["styles/*"]
     }
   }
 }

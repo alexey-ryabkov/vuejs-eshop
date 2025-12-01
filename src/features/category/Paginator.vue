@@ -9,7 +9,7 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@components/ui/pagination";
+} from "@widgets/pagination";
 
 const { isLoading, isError, products, page: activePage } = useCategory();
 

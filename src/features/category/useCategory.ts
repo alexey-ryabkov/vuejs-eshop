@@ -1,5 +1,5 @@
 import { toValue } from "vue";
-import { isProductAvailiable } from "@app/utils";
+import { isProductAvailiable } from "@utils";
 import { useCachedProducts, useCategoryRoute } from "@composables";
 
 export default function useCategory() {

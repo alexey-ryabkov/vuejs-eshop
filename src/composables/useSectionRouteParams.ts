@@ -1,7 +1,7 @@
 import { computed, inject } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useDebounceFn } from "@vueuse/core";
-import type { ProductsCategorySorting } from "@app/types";
+import type { ProductsCategorySorting } from "@types";
 
 const DEBOUNCE_SYNC_MS = 250;
 

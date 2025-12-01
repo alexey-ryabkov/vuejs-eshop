@@ -2,9 +2,9 @@
 import { computed } from "vue";
 
 import useProduct from "@features/product/useProduct";
-import { Preloader } from "@components/ui/preloader";
-import NotFound from "@components/ui/not-found/NotFound.vue";
-import SvgIcon from "@components/ui/svg-icon";
+import { Preloader } from "@ui/preloader";
+import NotFound from "@ui/not-found/NotFound.vue";
+import SvgIcon from "@ui/svg-icon";
 
 const {
   isLoading,

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Spinner } from "@components/ui/spinner";
-import { cn } from "@shared/utils";
 import type { HTMLAttributes } from "vue";
+
+import { Spinner } from "@ui/spinner";
+import { cn } from "@shared/utils";
 
 const DEFAULT_SIZE = 4;
 const SIZES_MAP = {

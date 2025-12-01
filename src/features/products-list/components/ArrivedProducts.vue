@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { isProductAvailiable } from "@app/utils";
+import { isProductAvailiable } from "@utils";
 import { useCachedProducts } from "@composables";
 import { sortByArriving } from "@features/products-list/utils";
-import NotFound from "@components/ui/not-found/NotFound.vue";
-import { Preloader } from "@components/ui/preloader";
+import NotFound from "@ui/not-found/NotFound.vue";
+import { Preloader } from "@ui/preloader";
 import { ProductsList } from "./products-list";
 
 const { isLoading, isError, products } = useCachedProducts({

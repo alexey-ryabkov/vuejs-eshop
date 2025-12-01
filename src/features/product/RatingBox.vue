@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SvgIcon from "@components/ui/svg-icon";
+import SvgIcon from "@ui/svg-icon";
 
 import useProduct from "@features/product/useProduct";
 

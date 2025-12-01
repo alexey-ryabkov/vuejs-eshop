@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 
-import NotFound from "@components/ui/not-found/NotFound.vue";
-import { Preloader } from "@components/ui/preloader";
-import { Separator } from "@components/ui/separator";
+import NotFound from "@ui/not-found/NotFound.vue";
+import { Preloader } from "@ui/preloader";
+import { Separator } from "@ui/separator";
 import useFavorites from "./useFavorites";
 
 const { isLoading, isError, favorites } = useFavorites();

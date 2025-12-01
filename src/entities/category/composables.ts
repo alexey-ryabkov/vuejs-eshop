@@ -1,5 +1,5 @@
 import { useQuery, type QueryObserverOptions } from "@tanstack/vue-query";
-import { inQueryBoundary } from "@app/utils";
+import { inQueryBoundary } from "@utils";
 import { fetchCategories } from "./api";
 
 export function useCategories(

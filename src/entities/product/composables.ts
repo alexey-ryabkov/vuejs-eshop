@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter } from "vue";
 import { useQuery } from "@tanstack/vue-query";
-import { inQueryBoundary } from "@app/utils";
+import { inQueryBoundary } from "@utils";
 import { fetchProductData, fetchProducts } from "./api";
 
 export function useProducts(

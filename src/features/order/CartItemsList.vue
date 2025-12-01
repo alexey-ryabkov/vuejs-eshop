@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 
-import { useStore } from "@app/stores";
+import { useStore } from "@app/store";
 import {
   NumberField,
   NumberFieldContent,
   NumberFieldDecrement,
   NumberFieldIncrement,
   NumberFieldInput,
-} from "@components/ui/number-field";
-import { Button } from "@components/ui/button";
-import SvgIcon from "@components/ui/svg-icon";
-import NotFound from "@components/ui/not-found/NotFound.vue";
-import { Preloader } from "@components/ui/preloader";
-import { Separator } from "@components/ui/separator";
+} from "@widgets/number-field";
+import { Button } from "@ui/button";
+import SvgIcon from "@ui/svg-icon";
+import NotFound from "@ui/not-found/NotFound.vue";
+import { Preloader } from "@ui/preloader";
+import { Separator } from "@ui/separator";
 import useCartItems from "./useCartItems";
 
 const store = useStore();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Preloader } from "@components/ui/preloader";
+import { Preloader } from "@ui/preloader";
 import { useCategoryProducts } from "@features/products-list/composables";
 import { computed } from "vue";
 

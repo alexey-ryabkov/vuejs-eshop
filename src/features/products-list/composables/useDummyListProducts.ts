@@ -1,4 +1,4 @@
-import { isProductAvailiable } from "@app/utils";
+import { isProductAvailiable } from "@utils";
 import { shuffle } from "@features/products-list/utils";
 import { useCachedProducts } from "@composables";
 

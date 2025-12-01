@@ -7,10 +7,10 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@components/ui/carousel";
-import { Preloader } from "@components/ui/preloader";
-import SvgIcon from "@components/ui/svg-icon/SvgIcon.vue";
-import { NotFound } from "@components/ui/not-found";
+} from "@widgets/carousel";
+import { Preloader } from "@ui/preloader";
+import SvgIcon from "@ui/svg-icon/SvgIcon.vue";
+import { NotFound } from "@ui/not-found";
 import useCategories from "./useCategories";
 
 const DUMMY_CAROUSEL_PAGES_COUNT = 3;

@@ -1,4 +1,4 @@
-import type { CartItemProduct } from "@app/types";
+import type { CartItemProduct } from "@types";
 
 export type Order = {
   coupon?: string;

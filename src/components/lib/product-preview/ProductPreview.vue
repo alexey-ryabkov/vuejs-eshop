@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Button } from "@components/ui/button";
-import SvgIcon from "@components/ui/svg-icon";
+import { Button } from "@ui/button";
+import SvgIcon from "@ui/svg-icon";
 import { cn } from "@shared/utils";
 import type { ProductPreviewProps } from ".";
 

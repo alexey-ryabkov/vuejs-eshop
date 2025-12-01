@@ -7,11 +7,7 @@ const breakpoints = {
 };
 
 export default {
-  content: [
-    "./src/index.html",
-    "./src/**/*.{ts,vue}",
-    "./src/app/styles/*.css",
-  ],
+  content: ["./src/index.html", "./src/**/*.{ts,vue}", "./src/styles/*.css"],
   theme: {
     screens: Object.fromEntries(
       Object.entries(breakpoints).map(([name, width]) => [name, `${width}px`])

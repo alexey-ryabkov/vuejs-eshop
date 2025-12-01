@@ -1,30 +1,24 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { useStore } from "@app/stores";
-import { successNotification } from "@app/utils";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@components/ui/card";
+import { useStore } from "@app/store";
+import { successNotification } from "@utils";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@ui/card";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from "@components/ui/form";
-import { Input } from "@components/ui/input";
+} from "@widgets/form";
+import { Input } from "@ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@components/ui/input-group";
-import { Button } from "@components/ui/button";
+} from "@widgets/input-group";
+import { Button } from "@ui/button";
 import useOrder from "./useOrder";
 
 const order = useOrder();
@@ -71,7 +65,9 @@ function dummyCheckout() {
                 />
               </FormControl>
               <InputGroupAddon align="inline-end">
-                <InputGroupButton class="w-18.5">Apply</InputGroupButton>
+                <InputGroupButton @click.prevent class="w-18.5"
+                  >Apply</InputGroupButton
+                >
               </InputGroupAddon>
             </InputGroup>
           </FormItem>

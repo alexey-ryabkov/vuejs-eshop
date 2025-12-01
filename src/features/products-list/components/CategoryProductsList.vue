@@ -2,8 +2,8 @@
 import { inject } from "vue";
 
 import { useCategoryProducts } from "@features/products-list/composables";
-import NotFound from "@components/ui/not-found/NotFound.vue";
-import { Preloader } from "@components/ui/preloader";
+import NotFound from "@ui/not-found/NotFound.vue";
+import { Preloader } from "@ui/preloader";
 import { ProductsList } from "./products-list";
 
 const itemsPerPage = inject("items_per_page", 10);

@@ -2,7 +2,7 @@
 import type { SelectItemProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";
 import { reactiveOmit } from "@vueuse/core";
-import SvgIcon from "@components/ui/svg-icon";
+import SvgIcon from "@ui/svg-icon";
 import {
   SelectItem,
   SelectItemIndicator,
