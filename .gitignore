@@ -33,3 +33,5 @@ coverage
 
 *bckp*
 tmp
+.env*
+!.env.sample
