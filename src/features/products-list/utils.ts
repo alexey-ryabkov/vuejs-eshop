@@ -14,7 +14,7 @@ export const sortByRating = (a: ProductData, b: ProductData) => {
 };
 
 export const sortByPrice = (a: ProductData, b: ProductData) =>
-  b.final_price - a.final_price;
+  a.final_price - b.final_price;
 
 export const sortByName = (a: ProductData, b: ProductData) =>
   a.full_title.localeCompare(b.full_title);

@@ -1,43 +1,45 @@
-import { ref, watch } from "vue";
-import { useRoute, useRouter, type LocationQueryValue } from "vue-router";
+import { computed, inject } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useDebounceFn } from "@vueuse/core";
+import type { ProductsCategorySorting } from "@app/types";
 
 const DEBOUNCE_SYNC_MS = 250;
+
+type SectionRouteParams = {
+  page?: number;
+  sorting?: ProductsCategorySorting;
+};
+
 export default function useSectionRouteParams() {
   const route = useRoute();
   const router = useRouter();
 
-  const page = ref<number>(Number(route.query.page ?? 1));
-  const sorting = ref<LocationQueryValue>(
-    (route.query.sorting ?? "") as LocationQueryValue
-  );
-
-  // TODO define filters refs from route query params
-
-  const sync = () => {
-    const query: Record<string, any> = {};
-    // TODO sync filters
-    if (page.value && page.value !== 1) query.page = String(page.value);
-    if (sorting.value) query.sorting = sorting.value;
-    router.replace({ query });
-  };
-  const syncDebounced = useDebounceFn(sync, DEBOUNCE_SYNC_MS);
-
-  // TODO watch filters
-  watch([page, sorting], () => {
-    syncDebounced();
+  const page = computed<number>({
+    get: () => Number(route.query.page ?? 1),
+    set: (page) => {
+      // sync({ page });
+      syncDebounced({ page })();
+    },
   });
 
-  watch(
-    () => route.query,
-    (query) => {
-      // TODO set filters
-      page.value = Number(query.page ?? 1);
-      sorting.value = (query.sorting ?? "") as LocationQueryValue;
-    }
-  );
+  const defSorting = inject("default_sorting", "");
+  const sorting = computed<ProductsCategorySorting>({
+    get: () => (route.query.sorting ?? defSorting) as ProductsCategorySorting,
+    set: (sorting) => {
+      // sync({ sorting });
+      syncDebounced({ sorting })();
+    },
+  });
 
-  // TODO return filters
+  const sync = ({ page, sorting }: SectionRouteParams) => {
+    const query: Record<string, any> = {};
+    if (page) query.page = String(page);
+    if (sorting) query.sorting = sorting;
+    router.replace({ query: { ...route.query, ...query } });
+  };
+  const syncDebounced = (query: SectionRouteParams) =>
+    useDebounceFn(() => sync(query), DEBOUNCE_SYNC_MS);
+
   return {
     page,
     sorting,
