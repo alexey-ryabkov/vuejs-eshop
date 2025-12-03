@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Filters } from "@features/category";
 import {
   Sheet,
   SheetContent,
@@ -10,7 +11,6 @@ import {
 } from "@ui/sheet";
 import { Button } from "@ui/button";
 import SvgIcon from "@ui/svg-icon";
-import Filters from "./Filters.vue";
 </script>
 
 <template>

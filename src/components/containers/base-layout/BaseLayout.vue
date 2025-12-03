@@ -1,11 +1,21 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from "vue";
 import { APP_ROUTES } from "@app/constants";
 import { SearchAutocomplete } from "@features/search";
 import { CartBox } from "@features/order";
 import { FavsBox } from "@features/favorites";
+import { cn } from "@utils";
 import LogoWithSign from "@assets/icons/logo-cyber-sign.svg";
 import Logo from "@assets/icons/logo-cyber.svg";
 import { Header, Footer, BurgerMenu, Menu, SocLinks } from "./components";
+
+defineOptions({
+  inheritAttrs: false,
+});
+
+const props = defineProps<{
+  class?: HTMLAttributes["class"];
+}>();
 </script>
 
 <template>
@@ -26,7 +36,7 @@ import { Header, Footer, BurgerMenu, Menu, SocLinks } from "./components";
       </div>
       <BurgerMenu />
     </Header>
-    <main class="w-full grow">
+    <main :class="cn('w-full grow', props.class)">
       <slot />
     </main>
     <Footer>
