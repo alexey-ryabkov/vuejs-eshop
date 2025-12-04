@@ -3,6 +3,7 @@ import { APP_ROUTES } from "@app/constants";
 import type { Product } from "@entities/product";
 import { getImageUrl } from "@api";
 import { simpleHash, toBase36 } from "@shared/utils";
+import type { ProductData, ProductsCategorySorting } from "@types";
 
 export const processProduct = (product: Product) => {
   const images = product.images.map(getImageUrl);
@@ -73,3 +74,29 @@ export const getDiscountPercent = (product: Product) => {
   const { price } = product;
   return price > 0 ? Math.round((100 * discount) / price) : 0;
 };
+
+export const sortByRating = (a: ProductData, b: ProductData) => {
+  const ratingDiff = b.rating - a.rating;
+  return !ratingDiff ? b.count_review - a.count_review : ratingDiff;
+};
+
+export const sortByPrice = (a: ProductData, b: ProductData) =>
+  a.final_price - b.final_price;
+
+export const sortByName = (a: ProductData, b: ProductData) =>
+  a.full_title.localeCompare(b.full_title);
+
+export const noSort = (_: ProductData, __: ProductData) => 0;
+
+export function getSortingFn(sorting: ProductsCategorySorting) {
+  switch (sorting) {
+    case "rating":
+      return sortByRating;
+    case "name":
+      return sortByName;
+    case "price":
+      return sortByPrice;
+    default:
+      return noSort;
+  }
+}

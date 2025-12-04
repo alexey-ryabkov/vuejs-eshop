@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { inject } from "vue";
-
-import { useCategoryProducts } from "@features/products-list/composables";
+import { useCategoryFilteredProducts } from "@features/products-list/composables";
 import NotFound from "@ui/not-found/NotFound.vue";
 import { Preloader } from "@ui/preloader";
 import { ProductsList } from "./products-list";
 
-const itemsPerPage = inject("items_per_page", 10);
-const { isLoading, isError, products } = useCategoryProducts(itemsPerPage);
+const { isLoading, isError, products } = useCategoryFilteredProducts();
 </script>
 
 <template>

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { provide } from "vue";
 
-import { CategoryProductsList, ProductsCounter } from "@features/products-list";
-import { Filters, Sorter, Paginator } from "@features/category";
+import { CategoryProductsList } from "@features/products-list";
+import { Sorter } from "@features/sorting";
+import { Filters } from "@features/filters";
+import { Paginator, ItemsCounter } from "@features/pagination";
 import BaseLayout from "@layouts/base";
 import { Button } from "@ui/button";
 import SvgIcon from "@ui/svg-icon";
@@ -22,7 +24,7 @@ provide("default_sorting", "rating");
         <div
           class="flex flex-col-reverse sm:flex-row sm:items-center justify-between mb-6 gap-6"
         >
-          <ProductsCounter />
+          <ItemsCounter>Selected Products:</ItemsCounter>
 
           <div class="flex gap-4">
             <FiltersPanel>

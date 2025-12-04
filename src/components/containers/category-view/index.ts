@@ -1,1 +1,1 @@
-export { default } from "./Category.vue";
+export { default } from "./CategoryView.vue";

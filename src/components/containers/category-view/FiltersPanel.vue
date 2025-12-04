@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Filters } from "@features/category";
+import { Filters } from "@features/filters";
 import {
   Sheet,
   SheetContent,
