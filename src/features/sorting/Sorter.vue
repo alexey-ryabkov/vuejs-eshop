@@ -3,7 +3,6 @@ import { computed, inject } from "vue";
 
 import type { ProductsCategorySorting } from "@types";
 import { PRODUCTS_CATEGORY_SORTINGS } from "@app/constants";
-import useCategory from "@features/category/useCategory";
 import {
   Select,
   SelectContent,
@@ -12,10 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ui/select";
-
-const { sorting: sortingRaw } = useCategory();
+import useRouteSorting from "./useRouteSorting";
 
 const defaultSorting = inject("default_sorting", "");
+const sortingRaw = useRouteSorting();
 const sorting = computed({
   get: () => sortingRaw.value || (defaultSorting ?? ""),
   set: (val: string) => (sortingRaw.value = val as ProductsCategorySorting),

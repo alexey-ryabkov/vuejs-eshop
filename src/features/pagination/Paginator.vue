@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from "vue";
-
-import useCategory from "@features/category/useCategory";
+import { inject } from "vue";
 import {
   Pagination,
   PaginationContent,
@@ -10,11 +8,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@widgets/pagination";
+import useItems from "./useItems";
 
-const { isLoading, isError, products, page: activePage } = useCategory();
-
-const itemsCount = computed(() => products.value?.length ?? 0);
 const itemsPerPage = inject("items_per_page", 10);
+const { isLoading, isError, itemsCount, page: activePage } = useItems();
 
 const gotoPage = (page: number) => (activePage.value = page);
 </script>
