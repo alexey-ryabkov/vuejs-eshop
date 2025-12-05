@@ -5,18 +5,19 @@ import {
   type MaybeRef,
   type MaybeRefOrGetter,
 } from "vue";
+
 import type {
   FilterProductsFn,
   ProductsCategorySorting,
   SortingProductsFn,
 } from "@types";
-import { getSortingFn } from "@features/products-list/utils";
+import { getSortingFn } from "@utils";
 import { useProducts } from "./useProducts";
 
 type ProductsViewParams = {
   categoryId?: number;
   sorting?: MaybeRef<SortingProductsFn | ProductsCategorySorting>;
-  filter?: MaybeRef<FilterProductsFn>;
+  filter?: MaybeRef<FilterProductsFn | undefined>;
   limit?: number;
   offset?: MaybeRefOrGetter<number>;
   enabled?: MaybeRefOrGetter<boolean>;

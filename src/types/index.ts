@@ -25,6 +25,10 @@ export type CartItemProduct = ProductData & CartItem;
 export type SortingProductsFn = SortingFn<ProductData>;
 export type FilterProductsFn = FilterFn<ProductData>;
 
+export type FilterParams = {
+  [key: string]: string | string[] | number | boolean | FilterParams;
+};
+
 export type ProductsCategorySorting = keyof typeof PRODUCTS_CATEGORY_SORTINGS;
 
 export type BreakpointFlags = Record<keyof typeof BREAKPOINS, boolean>;

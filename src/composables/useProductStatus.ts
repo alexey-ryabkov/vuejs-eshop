@@ -1,5 +1,6 @@
-import { useStore } from "@app/store";
 import { computed } from "vue";
+
+import { useStore } from "@app/store";
 
 export default function useProductStatus(id: number) {
   const store = useStore();

@@ -38,17 +38,22 @@ export function capitalizeFirst(item?: string) {
   return item[0].toUpperCase() + item.slice(1);
 }
 
-export function castArray<T = unknown>(item: T) {
-  if (Array.isArray(item)) return item;
+export function castArray<T = unknown>(
+  item: T | ArrayLike<T>
+): T extends readonly unknown[] ? T : T[] {
+  if (Array.isArray(item))
+    return item as T extends readonly unknown[] ? T : T[];
   if (
     item &&
     typeof item === "object" &&
     "length" in item &&
     typeof item.length === "number"
   ) {
-    return Array.from(item as ArrayLike<T>);
+    return Array.from(item as ArrayLike<T>) as T extends readonly unknown[]
+      ? T
+      : T[];
   }
-  return [item];
+  return [item] as T extends readonly unknown[] ? T : T[];
 }
 
 export function toNumber(value: unknown): number | null {

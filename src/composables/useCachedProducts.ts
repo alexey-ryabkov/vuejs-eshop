@@ -1,5 +1,6 @@
 import { watchEffect } from "vue";
 import { useQuery, useQueryClient } from "@tanstack/vue-query";
+
 import type { FilterProductsFn, ProductData, SortingProductsFn } from "@types";
 import useProductsView from "./useProductsView";
 

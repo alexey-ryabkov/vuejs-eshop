@@ -13,7 +13,7 @@ const delegatedProps = reactiveOmit(props, "class");
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
-<!-- border-b last:border-b-0  -->
+
 <template>
   <AccordionItem
     data-slot="accordion-item"
