@@ -36,11 +36,13 @@ const characteristics = computed(() =>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 mb-6">
       <div
         v-for="{ name, value, icon } in characteristics"
-        class="bg-accent pl-4 pr-1 min-h-21 py-1 rounded-lg flex gap-2 items-center leading-tight"
+        class="bg-accent pl-4 pr-1 min-h-16 py-1 rounded-lg flex gap-2 items-center leading-tight"
       >
         <SvgIcon :name="icon" class="size-5 text-[#4E4E4E]" />
         <div>
-          <div class="text-secondary font-compact line-clamp-2">{{ name }}</div>
+          <div class="text-secondary font-compact line-clamp-2 leading-tight">
+            {{ name }}
+          </div>
           <div class="line-clamp-2">{{ value }}</div>
         </div>
       </div>

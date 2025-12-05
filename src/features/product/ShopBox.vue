@@ -3,8 +3,10 @@ import { Button } from "@ui/button";
 import SvgIcon from "@ui/svg-icon";
 
 import useProduct from "@features/product/useProduct";
+import { computed } from "vue";
 
-const { isFavorite, isInCart, toggleFav, toggleInCart } = useProduct();
+const { isFavorite, isInCart, toggleFav, toggleInCart, data } = useProduct();
+const isAvailiable = computed(() => data.value?.is_available);
 </script>
 
 <template>
@@ -13,9 +15,19 @@ const { isFavorite, isInCart, toggleFav, toggleInCart } = useProduct();
       <Button @click="toggleFav" variant="outline" class="sm:flex-1 h-14">{{
         isFavorite ? "Remove from Wishlist" : "Add to Wishlist"
       }}</Button>
-      <Button @click="toggleInCart" class="sm:flex-1 h-14">{{
-        isInCart ? "Remove from Cart" : "Add to Cart"
-      }}</Button>
+      <div v-if="!data" class="sm:flex-1" />
+      <Button
+        v-else-if="isAvailiable"
+        @click="toggleInCart"
+        class="sm:flex-1 h-14"
+        >{{ isInCart ? "Remove from Cart" : "Add to Cart" }}</Button
+      >
+      <div
+        v-else
+        class="sm:flex-1 h-14 flex items-center justify-center text-base text-secondary"
+      >
+        Out of stock
+      </div>
     </div>
     <div class="flex justify-between gap-6 text-center sm:text-left">
       <div class="flex flex-col sm:flex-row gap-4 items-center">

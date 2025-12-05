@@ -43,7 +43,6 @@ watchEffect(() => {
 
 const router = useRouter();
 async function onFoundSelected({ link }: ProductData) {
-  console.log(link);
   await router.push(link);
   await nextTick();
   query.value = "";

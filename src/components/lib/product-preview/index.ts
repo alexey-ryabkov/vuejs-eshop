@@ -6,4 +6,5 @@ export type ProductPreviewProps = {
   image: string;
   link: string;
   isFavorite?: boolean;
+  isAvailiable?: boolean;
 };

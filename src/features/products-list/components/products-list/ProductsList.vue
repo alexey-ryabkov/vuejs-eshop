@@ -22,7 +22,14 @@ const props = defineProps<{
     :class="cn(productListVariants({ variant }), props.class)"
   >
     <ProductCard
-      v-for="{ id, full_title, link, image, final_price } in products"
+      v-for="{
+        id,
+        full_title,
+        link,
+        image,
+        final_price,
+        is_available,
+      } in products"
       as="li"
       :key="id"
       :id="id"
@@ -30,6 +37,7 @@ const props = defineProps<{
       :image="image"
       :link="link"
       :price="final_price"
+      :is-availiable="is_available"
     />
   </ul>
 </template>

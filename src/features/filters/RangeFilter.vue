@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 
 import { Slider } from "@ui/slider";
@@ -15,6 +15,12 @@ const props = defineProps<{
 
 const model = defineModel<[number, number] | undefined>();
 const displayValue = ref<[number, number]>(model.value ?? props.variants);
+
+const step = computed(() =>
+  !Number.isInteger(props.variants[0]) || !Number.isInteger(props.variants[1])
+    ? 0.1
+    : 1
+);
 
 let isInternalChange = false;
 const debouncedUpdateModelValue = useDebounceFn((value: [number, number]) => {
@@ -62,29 +68,6 @@ const handleToInput = (valueRaw: number | string) => {
     displayValue.value = [displayValue.value[0], value];
   }
 };
-
-// watch(model, (newValue) => {
-//   if (newValue) {
-//     displayValue.value = newValue;
-//   } else {
-//     displayValue.value = props.variants;
-//   }
-// });
-
-// watch(
-//   displayValue,
-//   (newValue) => {
-//     const isChanged =
-//       newValue[0] !== props.variants[0] || newValue[1] !== props.variants[1];
-
-//     if (isChanged) {
-//       model.value = newValue;
-//     } else {
-//       model.value = undefined;
-//     }
-//   },
-//   { deep: true }
-// );
 </script>
 
 <template>
@@ -121,7 +104,7 @@ const handleToInput = (valueRaw: number | string) => {
     v-model="displayValue"
     :min="variants[0]"
     :max="variants[1]"
-    :step="1"
+    :step="step"
     :class="cn('w-full', $attrs.class ?? '')"
   />
 </template>

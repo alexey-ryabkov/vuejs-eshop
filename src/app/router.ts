@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: APP_ROUTES.PRODUCTS,
       children: [
-        // { path: "", component: /* ... */ },
+        { path: "all", component: CategoryPage },
         { path: ":id", component: ProductPage },
       ],
     },

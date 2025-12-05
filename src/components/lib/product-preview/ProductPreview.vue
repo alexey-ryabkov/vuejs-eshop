@@ -49,6 +49,7 @@ defineEmits<{
         "
       />
     </Button>
+
     <RouterLink :to="link">
       <img
         :src="image"
@@ -58,7 +59,7 @@ defineEmits<{
       />
     </RouterLink>
 
-    <h5 class="text-base">
+    <h5 class="text-base min-h-none sm:min-h-12">
       <RouterLink :to="link" class="line-clamp-2 sm:line-clamp-none">
         {{ title }}
       </RouterLink>
@@ -66,8 +67,17 @@ defineEmits<{
     <span class="text-price text-2xl font-compact pb-2 max-sm:pt-2">{{
       price
     }}</span>
-    <Button @click="$emit('buy')" class="w-full max-w-46.5 m-auto"
+    <Button
+      v-if="isAvailiable"
+      @click="$emit('buy')"
+      class="w-full max-w-46.5 m-auto"
       >Buy Now</Button
     >
+    <div
+      v-else
+      class="h-12 flex items-center justify-center text-base text-secondary"
+    >
+      Out of stock
+    </div>
   </component>
 </template>

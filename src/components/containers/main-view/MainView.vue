@@ -34,9 +34,14 @@ import bigSummerBannerBgRight from "@assets/images/big-summer_banner_bg-right.we
 import bigSummerBannerBgRight2x from "@assets/images/big-summer_banner_bg-right.webp";
 import bigSummerBannerBgTop from "@assets/images/big-summer_banner_bg-top.webp";
 import bigSummerBannerBgBottom from "@assets/images/big-summer_banner_bg-bottom.webp";
+import { buildCategoryLink } from "@features/categories/utils";
 
 const TOP_BANNER_PRODUCT_ID = 23;
 const BIG_TILE_BANNER_PRODUCT_ID = 97;
+const POPULAR_TEASER_CATEGORY_ID = 5;
+const IPAD_TEASER_CATEGORY_ID = 4;
+const GALAXY_TEASER_CATEGORY_ID = 2;
+const MACBOOK_TEASER_CATEGORY_ID = 3;
 </script>
 
 <template>
@@ -167,7 +172,10 @@ const BIG_TILE_BANNER_PRODUCT_ID = 97;
     </div>
     <ProductsTabs />
     <TeasersCarousel>
-      <TeasersCarouselItem title="Popular Products">
+      <TeasersCarouselItem
+        title="Popular Products"
+        :link="buildCategoryLink(POPULAR_TEASER_CATEGORY_ID)"
+      >
         <template #picture>
           <img
             :src="popularPicture"
@@ -180,7 +188,11 @@ const BIG_TILE_BANNER_PRODUCT_ID = 97;
           performance, multitasking and ease of use.
         </p>
       </TeasersCarouselItem>
-      <TeasersCarouselItem title="Ipad Pro" background-color="#F9F9F9">
+      <TeasersCarouselItem
+        title="Ipad Pro"
+        :link="buildCategoryLink(IPAD_TEASER_CATEGORY_ID)"
+        background-color="#F9F9F9"
+      >
         <template #picture>
           <img
             :srcset="ipadSrcset"
@@ -194,7 +206,13 @@ const BIG_TILE_BANNER_PRODUCT_ID = 97;
           performance, multitasking and ease of use.
         </p>
       </TeasersCarouselItem>
-      <TeasersCarouselItem title="Samsung Galaxy" background-color="#EAEAEA">
+      <TeasersCarouselItem
+        title="Samsung Galaxy"
+        :link="
+          buildCategoryLink(GALAXY_TEASER_CATEGORY_ID) + '?filter=brand=Samsung'
+        "
+        background-color="#EAEAEA"
+      >
         <template #picture>
           <img
             :srcset="galaxySrcset"
@@ -210,6 +228,7 @@ const BIG_TILE_BANNER_PRODUCT_ID = 97;
       </TeasersCarouselItem>
       <TeasersCarouselItem
         title="Macbook Pro"
+        :link="buildCategoryLink(MACBOOK_TEASER_CATEGORY_ID)"
         color="#FFFFFF"
         background-color="#2C2C2C"
       >
@@ -256,7 +275,11 @@ const BIG_TILE_BANNER_PRODUCT_ID = 97;
       <div class="font-compact text-base text-secondary leading-8 mb-10">
         Commodo fames vitae vitae leo mauris in. Eu consequat.
       </div>
-      <Button variant="outline" size="lg" class="w-46.5 text-white"
+      <Button
+        @click="$router.push('/products/all?sorting=price')"
+        variant="outline"
+        size="lg"
+        class="w-46.5 text-white"
         >Shop Now</Button
       >
     </BottomBanner></BaseLayout

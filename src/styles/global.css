@@ -112,7 +112,7 @@
 
 @layer components {
   .layout-area {
-    @apply w-full min-w-90 max-w-6xl px-4 sm:px-6 mx-auto;
+    @apply w-full max-w-6xl px-4 sm:px-6 mx-auto;
   }
 
   .link {
@@ -143,6 +143,7 @@ html {
   body {
     @apply bg-background text-foreground text-sm;
     @apply font-normal font-compact md:font-base;
+    @apply min-w-93.75;
 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: subpixel-antialiased;
