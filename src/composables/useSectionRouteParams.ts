@@ -26,7 +26,7 @@ export default function useSectionRouteParams() {
         if (typeof filterQuery === "string") {
           return qs.parse(filterQuery) as FilterParams;
         }
-        return filterQuery as FilterParams;
+        return (<unknown>filterQuery) as FilterParams;
       } catch {
         return {} as FilterParams;
       }
