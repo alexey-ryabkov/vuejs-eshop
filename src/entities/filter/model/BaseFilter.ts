@@ -33,9 +33,6 @@ export default abstract class BaseFilter<
     return "";
   }
 
-  // TODO isActive - есть значение и фильтр стоит использовать для построения списка продуктов
-  // TODO сеттер для value, чтобы нормализовать то что приходит из url
-
   get isActive() {
     return !!this.value;
   }
@@ -44,6 +41,13 @@ export default abstract class BaseFilter<
   abstract normalize(raw: RawFilterValue): FilterVariantValue | null;
   abstract addVariant(value: FilterVariantValue): void;
   abstract apply(product: ProductData): boolean;
+
+  withValue(value: FilterValue) {
+    const clone = Object.create(Object.getPrototypeOf(this));
+    Object.assign(clone, this);
+    clone.value = value;
+    return clone;
+  }
 
   protected _getProductFieldValue(product: ProductData) {
     return (

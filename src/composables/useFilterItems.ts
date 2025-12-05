@@ -1,6 +1,6 @@
-import { computed, toRef, toValue, watchEffect, type Ref } from "vue";
+import { computed, toValue, type Ref } from "vue";
 
-import type { ProductData } from "@types";
+import type { FilterParams, ProductData } from "@types";
 import {
   buildFilterItems,
   CheckboxesFilter,
@@ -27,43 +27,60 @@ export default function useFilterItems() {
     ({ result: products } = useProducts());
   }
 
-  const filterItems = computed<Record<FilterCode, FilterItem> | undefined>(
-    () => {
+  const filterItems = computed<Record<FilterCode, FilterItem> | undefined>({
+    get: () => {
       const filterItemsRaw = products.value
         ? Object.values(buildFilterItems(products.value))
         : undefined;
       return filterItemsRaw?.length
         ? filterItemsRaw.reduce((result, item) => {
-            const filter = item.filter;
-            const ref = toRef(filter, "value");
-            return { ...result, [item.code]: { ...item, filter, ref } };
+            const filterItem = item.filter;
+            const filterCode = item.code;
+            const filterValue = filter.value?.[filterCode];
+            if (filterValue) {
+              let value;
+              if (filterItem instanceof RangeFilter) {
+                const { min, max } = filterValue as {
+                  min: string | number;
+                  max: string | number;
+                };
+                value = [toNumber(min) ?? NaN, toNumber(max) ?? NaN];
+              } else if (filterItem instanceof CheckboxesFilter) {
+                value = castArray(filterValue).map((v: unknown) =>
+                  String(v).trim()
+                );
+              } else if (filterItem instanceof RadioButtonsFilter) {
+                value = String(filterValue).trim();
+              } else if (filterItem instanceof ToggleFilter) {
+                value = !!filterValue;
+              }
+              if (value) {
+                filterItem.value = value;
+              }
+            }
+            return { ...result, [filterCode]: { ...item } };
           }, {})
         : undefined;
-    }
-  );
-
-  watchEffect(() => {
-    Object.entries(filter.value).forEach(([code, filterValue]) => {
-      if (filterItems.value && code in filterItems.value) {
-        let value;
-        const { filter } = filterItems.value[code];
-        if (filter instanceof RangeFilter) {
-          const { min, max } = filterValue as {
-            min: string | number;
-            max: string | number;
-          };
-          value = [toNumber(min) ?? NaN, toNumber(max) ?? NaN];
-        } else if (filter instanceof CheckboxesFilter) {
-          value = castArray(filterValue).map((v) => String(v).trim());
-        } else if (filter instanceof RadioButtonsFilter) {
-          value = String(filterValue).trim();
-        } else if (filter instanceof ToggleFilter) {
-          value = !!filterValue;
-        } else return;
-        filterItems.value[code].filter.value = value;
+    },
+    set: (filterItems) => {
+      const nextFilter: FilterParams = {};
+      if (filterItems) {
+        Object.values(filterItems).forEach(({ filter }) => {
+          if (filter.isActive) {
+            let filterValue;
+            const { code, value } = filter;
+            if (filter instanceof RangeFilter) {
+              const [min, max] = value as [number, number];
+              filterValue = { min, max };
+            } else {
+              filterValue = value as string[] | number | boolean;
+            }
+            nextFilter[code] = filterValue;
+          }
+        });
       }
-    });
+      filter.value = nextFilter;
+    },
   });
-
   return filterItems;
 }

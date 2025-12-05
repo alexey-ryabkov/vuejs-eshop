@@ -5,8 +5,36 @@ import {
   AccordionTrigger,
 } from "@widgets/accordion";
 import { ScrollArea } from "@ui/scroll-area";
+import { computed, onMounted, ref } from "vue";
 
 defineProps<{ code: string }>();
+
+const contentRef = ref<HTMLElement>();
+const scrollAreaRef = ref();
+const contentHeight = ref(0);
+const maxHeight = 144; // = h-36
+
+const hasExcessContent = computed(() => {
+  return contentHeight.value > maxHeight;
+});
+
+const measureContent = () => {
+  if (contentRef.value) {
+    contentHeight.value = contentRef.value.scrollHeight;
+  }
+};
+
+onMounted(() => {
+  measureContent();
+
+  const observer = new ResizeObserver(() => {
+    measureContent();
+  });
+
+  if (contentRef.value) {
+    observer.observe(contentRef.value);
+  }
+});
 </script>
 
 <template>
@@ -15,8 +43,12 @@ defineProps<{ code: string }>();
       ><slot name="title"
     /></AccordionTrigger>
     <AccordionContent class="pb-0">
-      <ScrollArea type="auto" class="h-60 w-full pr-1">
-        <div class="p-1 pr-5">
+      <ScrollArea
+        type="auto"
+        :class="['w-full', { 'h-36': hasExcessContent }]"
+        ref="scrollAreaRef"
+      >
+        <div ref="contentRef" class="p-1 pr-5">
           <slot />
         </div>
       </ScrollArea>

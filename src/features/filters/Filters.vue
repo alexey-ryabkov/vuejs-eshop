@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect } from "vue";
+import { computed } from "vue";
 import { useFilterItems } from "@composables";
 import {
   RangeFilter as RangeFilterType,
@@ -16,65 +16,57 @@ const SHOW_COMBOBOX_THRESHOLD = 7;
 
 const { isMobile } = useBreakpoints();
 const filterItems = useFilterItems();
+
 const openedItem = computed(() =>
   !isMobile.value && filterItems.value
     ? Object.values(filterItems.value)[0].code
     : undefined
 );
-// const { filter } = useCategory();
-// watchEffect(() => console.log(openedItem.value));
 
-// onMounted(() => {
-//   filter.value = {
-//     price: {
-//       min: "1000",
-//       max: "5000",
-//     },
-//     brand: ["apple", "samsung"],
-//   };
-// });
+function updateFilterValue(code: string, v: any) {
+  const curr = filterItems.value;
+  if (!curr || !(code in curr)) return;
 
-watchEffect(
-  // watch(
-  //   filter,
-  () => {
-    // console.log(
-    //   "Filters changed:",
-    //   filterItems.value
-    //     ? filterItems.value
-    //     : "no filter"
-    // );
+  const item = curr[code];
+  const old = item.filter?.value;
 
-    if (filterItems.value) {
-      Object.values(filterItems.value)
-        .filter(({ filter }) => filter.isActive)
-        .forEach(({ filter }) => {
-          console.log(`filter ${filter.code}`, filter.value, filter.variants);
-        });
-    }
-  }
-  //   { immediate: true, deep: true }
-);
+  if (JSON.stringify(old) === JSON.stringify(v)) return;
+
+  const newFilter = item.filter.withValue
+    ? item.filter.withValue(v)
+    : { ...item.filter, value: v };
+
+  filterItems.value = {
+    ...curr,
+    [code]: {
+      ...item,
+      filter: newFilter,
+    },
+  };
+}
 </script>
 
 <template>
-  <!-- HACK force redraw when got filterItems and openedItem becomes defined -->
+  <!-- HACK force redraw when got filterItems and openedItem becomes defined  -->
   <FiltersWrapper :key="openedItem" :opened="openedItem">
     <template
-      v-for="({ name, code, filter, ref }, index) in filterItems"
+      v-for="({ name, code, filter }, index) in filterItems"
       :key="index"
     >
       <FilterItem :code="code">
         <template #title>{{ name }}</template>
         <RangeFilter
           v-if="filter instanceof RangeFilterType"
-          :value="filter.value"
+          :modelValue="filter.value as [number, number] | undefined"
+          @update:modelValue="(v) => updateFilterValue(code, v)"
           :variants="filter.variants"
+          :debounce-time="500"
         />
         <CheckboxListFilter
           v-else-if="filter instanceof CheckboxesFilterType"
           :combobox="filter.variants.length > SHOW_COMBOBOX_THRESHOLD"
-          :value="ref"
+          :modelValue="filter.value as string[] | undefined"
+          @update:modelValue="(v) => updateFilterValue(code, v)"
           :variants="filter.variants"
         />
       </FilterItem>

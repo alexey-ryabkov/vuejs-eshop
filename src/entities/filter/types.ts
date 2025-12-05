@@ -24,6 +24,7 @@ export interface Filter<
   normalize(value: RawFilterValue): FilterVariantValue | null;
   addVariant(value: FilterVariantValue): void;
   apply(product: ProductData): boolean;
+  withValue(value: FilterValue): this;
   value?: FilterValue;
 }
 export type FilterConstructor = new (...args: any[]) => Filter;

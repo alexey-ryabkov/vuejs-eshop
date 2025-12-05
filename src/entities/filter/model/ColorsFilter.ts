@@ -7,7 +7,7 @@ export default class ColorsFilter extends CheckboxesFilter {
   }
 
   override normalize(value: string) {
-    // if (value == "none") return null;
+    if (value == "none") return null;
     return super.normalize(processMalformedColor(value));
   }
 }

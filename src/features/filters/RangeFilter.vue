@@ -1,17 +1,90 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useDebounceFn } from "@vueuse/core";
 
 import { Slider } from "@ui/slider";
 import { Field, FieldLabel } from "@ui/field";
 import { Input } from "@ui/input";
-import { cn } from "@shared/utils";
+import { cn, toNumber } from "@shared/utils";
 
 const props = defineProps<{
   value?: [number, number];
   variants: [number, number];
+  debounceTime?: number;
 }>();
 
-const modelValue = ref(props.value ?? props.variants);
+const model = defineModel<[number, number] | undefined>();
+const displayValue = ref<[number, number]>(model.value ?? props.variants);
+
+let isInternalChange = false;
+const debouncedUpdateModelValue = useDebounceFn((value: [number, number]) => {
+  const isChanged =
+    value[0] !== props.variants[0] || value[1] !== props.variants[1];
+
+  if (isChanged) {
+    model.value = value;
+  } else {
+    model.value = undefined;
+  }
+
+  isInternalChange = false;
+}, props.debounceTime ?? 1_000);
+
+watch(model, (newValue) => {
+  if (isInternalChange) return;
+
+  if (newValue) {
+    displayValue.value = newValue;
+  } else {
+    displayValue.value = props.variants;
+  }
+});
+
+watch(
+  displayValue,
+  (newValue) => {
+    isInternalChange = true;
+    debouncedUpdateModelValue(newValue);
+  },
+  { deep: true }
+);
+
+const handleFromInput = (valueRaw: number | string) => {
+  const value = toNumber(valueRaw);
+  if (value) {
+    displayValue.value = [value, displayValue.value[1]];
+  }
+};
+
+const handleToInput = (valueRaw: number | string) => {
+  const value = toNumber(valueRaw);
+  if (value) {
+    displayValue.value = [displayValue.value[0], value];
+  }
+};
+
+// watch(model, (newValue) => {
+//   if (newValue) {
+//     displayValue.value = newValue;
+//   } else {
+//     displayValue.value = props.variants;
+//   }
+// });
+
+// watch(
+//   displayValue,
+//   (newValue) => {
+//     const isChanged =
+//       newValue[0] !== props.variants[0] || newValue[1] !== props.variants[1];
+
+//     if (isChanged) {
+//       model.value = newValue;
+//     } else {
+//       model.value = undefined;
+//     }
+//   },
+//   { deep: true }
+// );
 </script>
 
 <template>
@@ -21,7 +94,8 @@ const modelValue = ref(props.value ?? props.variants);
         >From</FieldLabel
       >
       <Input
-        v-model.number="modelValue[0]"
+        :model-value="displayValue[0]"
+        @update:model-value="handleFromInput"
         class="rounded-sm h-10 px-2"
         autoComplete="off"
         placeholder="from"
@@ -34,7 +108,8 @@ const modelValue = ref(props.value ?? props.variants);
         >To</FieldLabel
       >
       <Input
-        v-model.number="modelValue[1]"
+        :model-value="displayValue[1]"
+        @update:model-value="handleToInput"
         class="rounded-sm h-10 px-2 text-right"
         autoComplete="off"
         placeholder="to"
@@ -43,7 +118,7 @@ const modelValue = ref(props.value ?? props.variants);
     </Field>
   </div>
   <Slider
-    v-model="modelValue"
+    v-model="displayValue"
     :min="variants[0]"
     :max="variants[1]"
     :step="1"

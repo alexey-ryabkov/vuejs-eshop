@@ -21,7 +21,7 @@ export default class CheckboxesFilter extends BaseFilter<
   }
 
   get isActual() {
-    return Object.values(this._variants).length > 0;
+    return Object.values(this._variants).length > 1;
   }
 
   normalize(value: RawFilterValue): { value: string; count: number } | null {

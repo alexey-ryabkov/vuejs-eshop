@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { computed, toRef, watch, type Ref } from "vue";
+import {
+  computed,
+  ref,
+  toRef,
+  toValue,
+  watch,
+  watchEffect,
+  type Ref,
+} from "vue";
 import {
   Combobox,
   ComboboxAnchor,
@@ -13,22 +21,22 @@ import {
 import { Checkbox } from "@ui/checkbox";
 import SvgIcon from "@ui/svg-icon";
 import { Label } from "@ui/label";
-import { castArray } from "@utils";
 
-const props = defineProps<{
-  value?: Ref<string[] | string | undefined>;
+defineProps<{
   variants: Record<string, number>;
   combobox?: boolean;
 }>();
-// const showCombobox = watch(() => props.combobox, () => props.combobox);
-// const values = toRef(castArray(props.value));
-const values = computed(() => castArray(props.value?.value ?? []));
 
-function onChange(name: string, flag: boolean) {
-  // console.log("onChange args", args);
-  /* values.value = flag
-    ? Array.from(new Set([...values.value, name]))
-    : values.value.filter((v) => v !== name); */
+const model = defineModel<string[] | undefined>({ default: undefined });
+
+function toggle(name: string, checked: boolean) {
+  const current = model.value ?? [];
+
+  model.value = checked
+    ? Array.from(new Set([...current, name]))
+    : current.filter((x) => x !== name);
+
+  if (model.value?.length === 0) model.value = undefined;
 }
 </script>
 
@@ -66,13 +74,13 @@ function onChange(name: string, flag: boolean) {
     >
       <Checkbox
         :id="name"
-        :modelValue="values.includes(name)"
-        @update:modelValue="(flag) => onChange(name, flag as boolean)"
+        :modelValue="model?.includes(name)"
+        @update:modelValue="(checked) => toggle(name, checked as boolean)"
         class="self-center"
       />
       <Label
         :for="name"
-        class="text-base font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        class="text-base font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 leading-tight"
       >
         {{ name }}
       </Label>

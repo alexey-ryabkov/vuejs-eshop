@@ -1,4 +1,8 @@
 export default function processMalformedColor(input: string): string {
+  if (input == "PRODUCT(RED)") {
+    return "Красный";
+  }
+
   const spacesCount = input.match(/\s/g);
   if (!spacesCount || spacesCount.length < 2) {
     return input;
